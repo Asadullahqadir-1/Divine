@@ -1,0 +1,16 @@
+{
+  "books": [
+    {
+      "_id": "local-where-i-come-from",
+      "title": "WHERE I COME FROM",
+      "slug": "where-i-come-from",
+      "description": "A leadership-focused book exploring identity, growth, and purpose-driven impact.",
+      "externalLink": "/uploads/books/where-i-come-from.pdf",
+      "featured": true,
+      "coverImageUrl": "/uploads/books/where-i-come-from-cover.jpg",
+      "imageAlt": "WHERE I COME FROM book cover",
+      "price": 5.99,
+      "pdfUrl": "/uploads/books/where-i-come-from.pdf"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-mist text-ink font-sans antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(8, 10, 12, 0.05) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+  opacity: 0.25;
+  z-index: -1;
+}
+
+.page-shell {
+  background: radial-gradient(circle at top right, rgba(181, 138, 59, 0.08), transparent 40%),
+    radial-gradient(circle at 0% 40%, rgba(14, 27, 45, 0.07), transparent 45%);
+}
+
+.gold-line {
+  background: linear-gradient(90deg, transparent, #b58a3b, transparent);
+}
+
+.hero-glow {
+  background: radial-gradient(circle at 20% 20%, rgba(181, 138, 59, 0.14), transparent 40%),
+    radial-gradient(circle at 70% 10%, rgba(14, 27, 45, 0.2), transparent 45%), #0e1b2d;
+}
+
+.btn-live {
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.btn-live:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(8, 10, 12, 0.18);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 550ms ease, transform 550ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: floatFast 5.5s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes floatFast {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
