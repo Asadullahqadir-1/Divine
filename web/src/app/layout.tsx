@@ -12,9 +12,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Divine Besong Eya | Leadership Coach and Author",
+  title: "Divine Besong Eya | Purpose, Inclusion and Impact",
   description:
-    "Leadership coaching, mentorship, books, and speaking support for individuals and organizations.",
+    "A purpose-led DEI platform with workshops, learning resources, and community engagements for the AI generation.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

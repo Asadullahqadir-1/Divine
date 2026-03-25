@@ -8,8 +8,8 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Books", href: "/books" },
-  { label: "Mentorship", href: "/mentorship-learning" },
-  { label: "Services", href: "/services" },
+  { label: "Learning Hub", href: "/mentorship-learning" },
+  { label: "Workshops", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -56,7 +56,7 @@ export function Navbar() {
             href="/contact"
             className="btn-live rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ink"
           >
-            Check Availability
+            Book a Session
           </Link>
         </nav>
       </Container>
@@ -88,7 +88,7 @@ export function Navbar() {
               className="btn-live mt-1 inline-flex w-max rounded-full bg-navy px-4 py-2 text-sm font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              Check Availability
+              Book a Session
             </Link>
           </Container>
         </div>

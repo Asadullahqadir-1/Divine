@@ -1,14 +1,14 @@
 export const mission =
-  "To equip every leader - emerging or established - with the mindset tools, strategies, and courage to navigate complexity with clarity, inclusion and create lasting impact.";
+  "To equip leaders, teams, and organizations to lead with purpose, champion inclusion, and create measurable human impact in the AI generation.";
 
 export const vision =
-  "A world where leaders lead from the inside out grounded in purpose, powered by resilience, and guided by authentic human values.";
+  "A world where purpose anchors identity, inclusion shapes every decision, and innovation scales impact with fairness, dignity, and belonging for all.";
 
 export const aboutSummary =
-  "Divine Besong Eya is a published eBooks author, MBA candidate specializing in Risk Management, leadership coach, and expert in leading diverse teams with purpose, clarity, and inclusion.";
+  "Besongeya is an MBA candidate in Risk Management, author, speaker, DEI advocate, and empowerment strategist helping leaders transform purpose into inclusive action.";
 
 export const aboutDetails =
-  "His work focuses on helping individuals and organizations navigate uncertainty, build cohesive teams, and lead with integrity in a rapidly changing world.";
+  "Her work supports professionals, organizations, and change-makers to navigate AI-era disruption while building equitable systems, resilient cultures, and enduring impact.";
 
 export const books = [
   {
@@ -37,76 +37,85 @@ export const books = [
 
 export const services = [
   {
-    title: "Leadership Coaching",
-    description: "Executive and emerging leader coaching for purpose, clarity, and impact.",
-    ctaText: "Book Coaching",
+    title: "The Inclusive Leader - Leading Beyond Bias",
+    description: "Half-day workshop to identify unconscious bias, strengthen psychological safety, and build confidence for courageous DEI conversations.",
+    ctaText: "Book This Workshop",
     ctaLink: "/contact",
   },
   {
-    title: "Crisis Navigation",
-    description: "Decision and communication frameworks to lead confidently in pressure moments.",
-    ctaText: "Discuss Strategy",
+    title: "Equity by Design - Restructuring Systems for Fairness",
+    description: "Full-day strategic workshop for redesigning hiring, performance, and promotion systems through an equity lens.",
+    ctaText: "Plan With Your Team",
     ctaLink: "/contact",
   },
   {
-    title: "Organizational Consulting",
-    description: "Build cohesive teams, resilient culture, and inclusive leadership systems.",
-    ctaText: "Work With Divine",
+    title: "Purpose-Led Leadership in the AI Era",
+    description: "Virtual-first session on leading AI adoption with empathy, purpose, and inclusive decision-making frameworks.",
+    ctaText: "Schedule Session",
     ctaLink: "/contact",
   },
 ];
 
 export const mentorshipPrograms = [
   {
-    title: "Leadership Accelerator",
+    title: "The Power of Purpose - Finding Your North Star",
     type: "course",
-    description: "A guided curriculum for ambitious leaders building strategic confidence.",
-    ctaText: "Join Program",
+    description: "45-minute mini course to define your purpose statement and align daily decisions with your values.",
+    ctaText: "Start Learning",
     ctaLink: "/contact",
   },
   {
-    title: "Team Excellence Workshop",
+    title: "Inclusion 101 - Introduction for Every Professional",
     type: "workshop",
-    description: "Interactive workshop to strengthen collaboration, trust, and execution.",
-    ctaText: "Book Workshop",
+    description: "60-minute foundational training on diversity, equity, inclusion, and belonging in modern teams.",
+    ctaText: "Join Course",
     ctaLink: "/contact",
   },
   {
-    title: "1-on-1 Mentorship",
-    type: "mentorship",
-    description: "Private mentorship for leaders navigating growth, transition, or crisis.",
-    ctaText: "Apply for Mentorship",
+    title: "DEI in the AI Workplace",
+    type: "course",
+    description: "90-minute practical course on algorithmic bias, equitable technology adoption, and workplace advocacy.",
+    ctaText: "Access Course",
     ctaLink: "/contact",
   },
 ];
 
 export const blogPosts = [
   {
-    title: "Leading Through Uncertainty",
-    slug: "leading-through-uncertainty",
-    excerpt: "How to maintain clarity, trust, and momentum when outcomes are unclear.",
-    author: "Divine Besong Eya",
-    publishedAt: "2026-03-01",
+    title: "How to Find Your Purpose When Your Career Changes",
+    slug: "find-purpose-when-career-changes",
+    excerpt: "Purpose is not fixed to a role title. It is the thread that can guide your next chapter with clarity.",
+    author: "Besongeya",
+    publishedAt: "2026-03-10",
     content:
-      "Uncertainty does not remove leadership responsibility; it sharpens it. Great leaders stabilize direction, communicate consistently, and create practical next steps.",
+      "Career transitions can feel disorienting, especially in the AI era. This guide helps you reconnect with values, strengths, and calling so your next move is intentional and aligned.",
   },
   {
-    title: "Inclusion as a Leadership Advantage",
-    slug: "inclusion-as-a-leadership-advantage",
-    excerpt: "Inclusive leadership is not charity; it is a multiplier for execution quality.",
-    author: "Divine Besong Eya",
-    publishedAt: "2026-02-10",
+    title: "Why Diversity Hiring Is Not Enough: The Case for Belonging",
+    slug: "diversity-hiring-not-enough-belonging",
+    excerpt: "Representation without belonging leaves performance and trust on the table. Inclusion must be lived daily.",
+    author: "Besongeya",
+    publishedAt: "2026-03-03",
     content:
-      "Teams perform better when diverse voices contribute to strategy and decision-making. Inclusion improves foresight, creativity, and accountability.",
+      "Diverse hiring is a starting point, not a finish line. Sustainable inclusion requires psychological safety, equitable systems, and leadership accountability at every level.",
   },
   {
-    title: "The Inner Discipline of Purpose-Driven Leaders",
-    slug: "inner-discipline-purpose-driven-leaders",
-    excerpt: "Purpose translates vision into action when discipline sustains consistency.",
-    author: "Divine Besong Eya",
-    publishedAt: "2026-01-21",
+    title: "How One Team Transformed Through DEI Training",
+    slug: "team-transformed-through-dei-training",
+    excerpt: "A practical impact story of how structured DEI work improved collaboration, retention, and trust.",
+    author: "Besongeya",
+    publishedAt: "2026-02-17",
     content:
-      "Leadership maturity is built in habits. Purpose gives direction, but discipline converts that direction into measurable outcomes.",
+      "Transformation happens when teams pair honest dialogue with practical habits. This story explores how one organization shifted from compliance to genuine culture change.",
+  },
+  {
+    title: "AI Is Not Neutral: Why Inclusive Leaders Must Pay Attention",
+    slug: "ai-is-not-neutral-inclusive-leaders",
+    excerpt: "Automation can scale value, but it can also scale bias. Leaders need an inclusion lens before deployment.",
+    author: "Besongeya",
+    publishedAt: "2026-02-01",
+    content:
+      "AI systems mirror the data and design choices we give them. Inclusive leaders ask better questions early so technology supports fairness, dignity, and shared progress.",
   },
 ];
 

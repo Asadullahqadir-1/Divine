@@ -47,15 +47,25 @@ export default async function HomePage() {
         </Reveal>
       </Container>
 
+      <Container className="pt-2 pb-10">
+        <Reveal>
+          <blockquote className="rounded-3xl border border-gold/25 bg-gradient-to-r from-gold/10 via-white to-gold/10 p-6 text-center sm:p-8">
+            <p className="font-display text-3xl leading-tight text-navy sm:text-4xl">
+              "Your purpose is not a destination. It is the engine that drives every step of your journey, especially when the terrain is uncertain."
+            </p>
+          </blockquote>
+        </Reveal>
+      </Container>
+
       <Container className="py-12">
         <Reveal>
           <SectionHeader
             eyebrow="About"
-            title="A high-impact voice for resilient leadership"
+            title="A dedicated platform at the intersection of purpose, inclusion, and impact"
             description={aboutSummary}
           />
           <Link href="/about" className="btn-live mt-6 inline-flex rounded-full border border-navy px-5 py-2 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white">
-            Read Full Biography
+            Learn About the Mission
           </Link>
         </Reveal>
       </Container>
@@ -63,9 +73,9 @@ export default async function HomePage() {
       <Container className="py-12">
         <Reveal>
           <SectionHeader
-            eyebrow="Services"
-            title="Keynote experiences that deliver practical outcomes"
-            description="Speaking, coaching, and strategic advisory for organizations navigating uncertainty, growth, and transformation."
+            eyebrow="Leadership Workshops"
+            title="Practical DEI workshops for today's leaders"
+            description="Live and virtual workshop experiences combining evidence-based frameworks with practical application for teams, executives, and emerging leaders."
           />
           <Stagger className="mt-8 grid gap-5 md:grid-cols-3">
             {serviceList.slice(0, 3).map((service) => (
@@ -85,8 +95,8 @@ export default async function HomePage() {
         <Reveal>
           <SectionHeader
             eyebrow="Books"
-            title="Books that turn leadership theory into action"
-            description="Explore frameworks and insights for purpose-driven leadership, crisis navigation, and sustained team performance."
+            title="Books and resources that turn reflection into action"
+            description="Explore practical insights on leadership, resilience, DEI, and purpose-led decision-making in uncertain times."
           />
           <Stagger className="mt-8 grid gap-5 md:grid-cols-2">
             {bookList.slice(0, 2).map((book) => (
@@ -110,15 +120,15 @@ export default async function HomePage() {
           <div className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm sm:p-10">
           <SectionHeader
             eyebrow="Ready to Work Together"
-            title="Bring clarity, alignment, and momentum to your next event"
-            description="Book Divine for keynote speaking, team sessions, or leadership consulting tailored to your goals."
+            title="Lead with intention in this AI generation"
+            description="Partner with Besongeya for workshops, training, and strategic guidance that build equitable systems and people-centered impact."
           />
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/contact" className="btn-live rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink">
-              Talk About Your Event
+              Request a Session
             </Link>
-            <Link href="/services" className="btn-live rounded-full border border-navy px-5 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white">
-              See Services
+            <Link href="/mentorship-learning" className="btn-live rounded-full border border-navy px-5 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white">
+              Explore Learning Programs
             </Link>
           </div>
           </div>

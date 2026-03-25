@@ -6,7 +6,7 @@ import { getAboutData } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "About | Divine Besong Eya",
-  description: "Biography, leadership philosophy, and professional background of Divine Besong Eya.",
+  description: "About Besongeya: author, speaker, DEI advocate, and purpose-led leadership strategist.",
 };
 
 export default async function AboutPage() {
@@ -16,8 +16,8 @@ export default async function AboutPage() {
     <Container className="py-20">
       <Reveal>
         <SectionHeader
-          eyebrow="About Divine"
-          title="Leadership rooted in purpose, clarity, and measurable impact"
+          eyebrow="About Besongeya"
+          title="Leading with intention in the AI generation"
           description={about.biography}
         />
       </Reveal>
@@ -25,7 +25,7 @@ export default async function AboutPage() {
       <Reveal>
         <div className="mt-8 grid gap-4 rounded-2xl border border-black/10 bg-white p-5 sm:grid-cols-3">
           <div className="rounded-xl border border-black/10 bg-mist p-4 text-center">
-            <p className="font-display text-3xl text-navy">4+</p>
+            <p className="font-display text-3xl text-navy">Author</p>
             <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60">Published Books</p>
           </div>
           <div className="rounded-xl border border-black/10 bg-mist p-4 text-center">
@@ -33,8 +33,8 @@ export default async function AboutPage() {
             <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60">Risk Management</p>
           </div>
           <div className="rounded-xl border border-black/10 bg-mist p-4 text-center">
-            <p className="font-display text-3xl text-navy">Global</p>
-            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60">Leadership Lens</p>
+            <p className="font-display text-3xl text-navy">DEI</p>
+            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60">Advocate</p>
           </div>
         </div>
       </Reveal>
@@ -49,6 +49,9 @@ export default async function AboutPage() {
           <p className="mt-3 text-sm text-ink/75">
             MBA Candidate specializing in {about.specialization}. Experienced in leadership coaching and leading diverse
             teams with clarity, inclusion, and measurable outcomes.
+          </p>
+          <p className="mt-3 text-sm text-ink/75">
+            Besongeya serves as an author, speaker, DEI advocate, and empowerment strategist with a focus on helping people and institutions align values with practice.
           </p>
 
           <h3 className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-gold">Focus Areas</h3>
@@ -75,6 +78,14 @@ export default async function AboutPage() {
           </aside>
         </Reveal>
       </div>
+
+      <Reveal>
+        <blockquote className="mt-10 rounded-2xl border border-gold/30 bg-gold/10 p-7 text-center">
+          <p className="font-display text-3xl leading-tight text-navy">
+            "Inclusion is not the absence of difference. It is the courage to create space where every difference is valued, seen, and heard."
+          </p>
+        </blockquote>
+      </Reveal>
     </Container>
   );
 }

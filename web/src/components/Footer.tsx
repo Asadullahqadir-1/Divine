@@ -7,8 +7,8 @@ import { resolveSocialUrl } from "@/lib/social";
 const quickLinks = [
   { label: "About", href: "/about" },
   { label: "Books", href: "/books" },
-  { label: "Mentorship", href: "/mentorship-learning" },
-  { label: "Services", href: "/services" },
+  { label: "Learning Hub", href: "/mentorship-learning" },
+  { label: "Workshops", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -26,13 +26,13 @@ export async function Footer() {
         <div>
           <h3 className="font-display text-3xl text-navy sm:text-4xl">Divine Besong Eya</h3>
           <p className="mt-3 text-sm leading-relaxed text-ink/70">
-            Hallmark leadership voice for resilience, inclusion, and high-performance culture in times of change.
+            A purpose-led platform advancing inclusion, equity, and human-centered impact for leaders and organizations.
           </p>
           <Link
             href="/contact"
             className="btn-live mt-5 inline-flex rounded-full bg-navy px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white"
           >
-            Check Availability
+            Book a Session
           </Link>
         </div>
 
