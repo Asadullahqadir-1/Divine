@@ -15,6 +15,20 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: "/", destination: "/index.html" },
+        { source: "/about", destination: "/about.html" },
+        { source: "/services", destination: "/services.html" },
+        { source: "/workshops", destination: "/workshops.html" },
+        { source: "/portfolio", destination: "/portfolio.html" },
+        { source: "/mentorship", destination: "/mentorship.html" },
+        { source: "/insights", destination: "/insights.html" },
+        { source: "/contact", destination: "/contact.html" },
+      ],
+    };
+  },
 };
 
 export default nextConfig;
