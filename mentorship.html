@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mentorship Program | Divine Besong Eya — Leadership Development</title>
+<meta name="description" content="Comprehensive mentorship programme for emerging leaders and entrepreneurs. Personal guidance from seasoned leadership coach Divine Besong Eya.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0d;--bone:#f5f0e8;--gold:#b8963e;--gold-light:#d4ae5c;
+  --gold-pale:#f0e6c8;--slate:#2c2c2c;--mid:#6b6b6b;--light:#ede8de;
+  --white:#ffffff;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bone);color:var(--ink);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.6;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s;}
+nav.scrolled{background:rgba(245,240,232,.96);backdrop-filter:blur(12px);padding:1rem 4rem;border-bottom:1px solid rgba(184,150,62,.2);}
+nav.dark-nav{background:rgba(13,13,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,.12);}
+.nav-logo{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.02em;}
+.nav-logo.light{color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--slate);font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;}
+.nav-links.light a{color:rgba(255,255,255,.75);}
+.nav-links a:hover,.nav-links.light a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.nav-links.light a.active{color:var(--gold-light);}
+.nav-cta{background:var(--ink);color:var(--bone)!important;padding:.55rem 1.4rem;}
+.nav-cta:hover{background:var(--gold)!important;color:var(--white)!important;}
+.dark-nav .nav-links a{color:rgba(255,255,255,.7);}
+.dark-nav .nav-logo{color:var(--white);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:200;}
+.hamburger span{width:24px;height:2px;background:var(--ink);transition:.3s;}
+.dark-nav .hamburger span,.light-ham span{background:var(--white);}
+.mobile-nav{display:none;position:fixed;inset:0;background:var(--ink);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--white);text-decoration:none;transition:color .2s;}
+.mobile-nav a:hover{color:var(--gold);}
+.mobile-close{position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--white);font-size:2rem;cursor:pointer;line-height:1;}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:var(--white);padding:.95rem 2.2rem;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .2s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-dark{background:var(--ink);color:var(--white);}
+.btn-dark:hover{background:var(--gold)!important;}
+.btn-ghost{background:transparent;color:var(--ink);padding:.95rem 2.2rem;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);transition:border-color .25s,color .25s,background .25s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost-white{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.8);}
+.btn-ghost-white:hover{border-color:var(--gold);color:var(--gold);}
+
+/* SHARED LAYOUT */
+.section-label{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.section-title{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;color:var(--ink);max-width:750px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-title.white{color:var(--white);}
+
+/* PAGE HERO BANNER */
+.page-banner{background:var(--ink);padding:10rem 5rem 5rem;position:relative;overflow:hidden;}
+.page-banner::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;height:100%;background:radial-gradient(ellipse,rgba(184,150,62,.12) 0%,transparent 70%);pointer-events:none;}
+.page-banner-label{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;opacity:0;animation:fadeUp .7s .3s forwards;}
+.page-banner h1{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:300;color:var(--white);line-height:1.05;max-width:800px;opacity:0;animation:fadeUp .8s .5s forwards;}
+.page-banner h1 em{font-style:italic;color:var(--gold-light);}
+.page-banner-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:600px;margin-top:1.5rem;line-height:1.8;font-weight:300;opacity:0;animation:fadeUp .7s .7s forwards;}
+
+/* MARQUEE */
+.marquee-bar{background:var(--gold);padding:.75rem 0;overflow:hidden;white-space:nowrap;}
+.marquee-inner{display:inline-flex;animation:marquee 22s linear infinite;}
+.marquee-item{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--white);margin:0 1.8rem;}
+.marquee-sep{color:rgba(255,255,255,.4);margin:0 .4rem;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{background:#080808;padding:3rem 5rem;border-top:1px solid rgba(255,255,255,.04);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo{font-family:var(--serif);font-size:1.1rem;color:rgba(255,255,255,.5);}
+.footer-logo span{color:var(--gold);}
+.footer-links{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:.72rem;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.08em;transition:color .2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.18);}
+
+/* UTIL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav,nav.scrolled{padding:1.2rem 2.5rem;}
+  .page-banner{padding:8rem 2.5rem 4rem;}
+  footer{padding:2.5rem 2.5rem;}
+}
+@media(max-width:768px){
+  nav,nav.scrolled{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .page-banner{padding:7rem 1.5rem 3.5rem;}
+  footer{padding:2rem 1.5rem;}
+  .footer-inner{flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+</style>
+
+<style>
+/* MENTORSHIP CONTAINER */
+.mentorship-container{max-width:1300px;margin:0 auto;padding:7rem 5rem;}
+
+/* PROGRAM OVERVIEW */
+.program-overview{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;margin-bottom:5rem;align-items:center;}
+.overview-content h2{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--ink);margin-bottom:1.5rem;line-height:1.2;}
+.overview-content h2 em{font-style:italic;color:var(--gold);}
+.overview-content p{font-size:.95rem;color:var(--mid);line-height:1.9;margin-bottom:1.5rem;}
+.overview-stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem;background:var(--light);border-left:4px solid var(--gold);}
+.overview-stat h3{font-size:2rem;font-weight:600;color:var(--gold);margin-bottom:.5rem;}
+.overview-stat p{font-size:.82rem;color:var(--mid);}
+
+/* PROGRAM TIERS */
+.tiers-section{margin-bottom:5rem;}
+.tiers-section .section-title{margin-bottom:3rem;}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+
+.tier-card{background:var(--white);padding:2.5rem;border-top:4px solid var(--gold);transition:transform .3s,box-shadow .3s;}
+.tier-card:hover{transform:translateY(-8px);box-shadow:0 15px 50px rgba(0,0,0,.15);}
+.tier-card.featured{border-top-color:#d4ae5c;background:linear-gradient(135deg,rgba(184,150,62,.05) 0%,rgba(255,255,255,1) 100%);border:3px solid var(--gold);padding:calc(2.5rem - 1px);}
+.tier-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--gold);color:var(--white);padding:.4rem 1rem;margin-bottom:1rem;}
+.tier-title{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:.8rem;}
+.tier-duration{font-size:.85rem;color:var(--gold);font-weight:600;margin-bottom:1.5rem;}
+.tier-price{font-size:1.4rem;color:var(--ink);margin-bottom:.5rem;}
+.tier-price span{font-size:.85rem;color:var(--mid);font-weight:400;}
+.tier-description{font-size:.9rem;color:var(--mid);line-height:1.8;margin-bottom:2rem;}
+.tier-features{list-style:none;margin-bottom:2rem;}
+.tier-features li{font-size:.85rem;color:var(--mid);padding:.6rem 0;display:flex;align-items:flex-start;gap:.6rem;border-bottom:1px solid rgba(0,0,0,.05);}
+.tier-features li::before{content:'✓';color:var(--gold);font-weight:bold;flex-shrink:0;}
+.tier-features li:last-child{border-bottom:none;}
+.tier-cta a{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;}
+.tier-cta a:hover{gap:.9rem;}
+.tier-cta a::after{content:'→';}
+
+/* CURRICULUM */
+.curriculum-section{background:var(--ink);padding:7rem 5rem;margin-bottom:5rem;}
+.curriculum-section .section-title{color:var(--white);margin-bottom:3rem;}
+.curriculum-modules{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.module-card{background:rgba(255,255,255,.05);padding:2.5rem;border-left:3px solid var(--gold);}
+.module-num{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--gold);margin-bottom:.8rem;}
+.module-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:1rem;}
+.module-topics{list-style:none;}
+.module-topics li{font-size:.85rem;color:rgba(255,255,255,.6);padding:.5rem 0;display:flex;align-items:flex-start;gap:.5rem;}
+.module-topics li::before{content:'→';color:var(--gold);flex-shrink:0;}
+
+/* MENTEE BENEFITS */
+.benefits-section{margin-bottom:5rem;}
+.benefits-section .section-title{margin-bottom:3rem;}
+.benefits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem;}
+.benefit-item{padding:2rem;background:var(--white);border-left:4px solid var(--gold);}
+.benefit-item h3{font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:1rem;}
+.benefit-item p{font-size:.9rem;color:var(--mid);line-height:1.8;}
+.benefit-num{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--gold);opacity:.3;margin-bottom:-.5rem;}
+
+/* PROCESS */
+.process-section{background:var(--light);padding:7rem 5rem;margin-bottom:5rem;}
+.process-section .section-title{margin-bottom:4rem;}
+.process-timeline{position:relative;padding:2rem 0;}
+.process-timeline::before{content:'';position:absolute;left:2rem;top:0;bottom:0;width:2px;background:var(--gold);}
+.timeline-item{margin-bottom:3rem;padding-left:6rem;position:relative;}
+.timeline-item:last-child{margin-bottom:0;}
+.timeline-dot{position:absolute;left:0;top:0;width:4rem;height:4rem;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--white);font-family:var(--serif);font-size:1.3rem;}
+.timeline-label{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.timeline-title{font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:.8rem;}
+.timeline-desc{font-size:.9rem;color:var(--mid);line-height:1.8;}
+
+/* SUCCESS METRICS */
+.success-section{margin-bottom:5rem;}
+.success-section .section-title{margin-bottom:3rem;}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.metric-card{text-align:center;padding:2rem;background:var(--white);border-top:3px solid var(--gold);}
+.metric-num{font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--gold);margin-bottom:.5rem;}
+.metric-label{font-size:.85rem;color:var(--mid);line-height:1.6;}
+
+/* MENTEE TESTIMONIAL */
+.testimonial-feature{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:4rem;background:var(--ink);color:var(--white);}
+.testimonial-feature h2{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:1.5rem;line-height:1.2;}
+.testimonial-feature h2 em{font-style:italic;color:var(--gold-light);}
+.testimonial-feature p{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.7);margin-bottom:2rem;line-height:1.9;}
+.testimonial-author{display:flex;align-items:center;gap:1rem;}
+.author-avatar{width:50px;height:50px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--white);flex-shrink:0;}
+.author-info .author-name{font-weight:600;margin-bottom:.3rem;}
+.author-info .author-title{font-size:.8rem;color:rgba(255,255,255,.6);}
+
+/* CTA SECTION */
+.mentorship-next{background:var(--bone);padding:5rem;text-align:center;margin:5rem 0;}
+.mentorship-next h2{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--ink);margin-bottom:1.5rem;}
+.mentorship-next h2 em{font-style:italic;color:var(--gold);}
+.mentorship-next p{color:var(--mid);margin-bottom:2rem;font-size:.95rem;max-width:600px;margin-left:auto;margin-right:auto;}
+.mentorship-next .btn-primary{margin-right:1rem;}
+
+@media(max-width:1024px){
+  .mentorship-container,.curriculum-section,.process-section,.features-section{padding:5rem 2.5rem;}
+  .program-overview{grid-template-columns:1fr;}
+  .overview-stats{grid-template-columns:1fr;}
+  .tiers-grid{grid-template-columns:1fr;}
+  .benefits-grid{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:repeat(2,1fr);}
+  .testimonial-feature{grid-template-columns:1fr;}
+  .curriculum-modules{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .mentorship-container,.curriculum-section,.process-section,.mentorship-next,.testimonial-feature,.page-banner{padding:4rem 1.5rem;}
+  .metrics-grid{grid-template-columns:1fr;}
+  .testimonial-author{flex-direction:column;text-align:center;}
+  .mentorship-next .btn-primary{margin-right:0;margin-bottom:1rem;}
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav" class="dark-nav">
+  <a href="index.html" class="nav-logo light">Divine Besong <span>Eya</span></a>
+  <ul class="nav-links light">
+    <li><a href="index.html" >Home</a></li>
+    <li><a href="about.html" >About</a></li>
+    <li><a href="services.html" >Services</a></li>
+    <li><a href="workshops.html" >Workshops</a></li>
+    <li><a href="portfolio.html" >Portfolio</a></li>
+    <li><a href="mentorship.html" class="active">Mentorship</a></li>
+    <li><a href="insights.html" >Insights</a></li>
+    <li><a href="contact.html" class="nav-cta ">Work with Me</a></li>
+  </ul>
+  <div class="hamburger light-ham" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div id="mobile-nav" class="mobile-nav">
+  <button class="mobile-close" id="close-nav">✕</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="services.html" onclick="closeMob()">Services</a>
+  <a href="workshops.html" onclick="closeMob()">Workshops</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="mentorship.html" onclick="closeMob()">Mentorship</a>
+  <a href="insights.html" onclick="closeMob()">Insights</a>
+  <a href="contact.html" onclick="closeMob()">Work with Me</a>
+</div>
+
+<!-- PAGE BANNER -->
+<div class="page-banner">
+  <span class="page-banner-label">Personal Development</span>
+  <h1>Mentorship for the <em>Ambitious</em></h1>
+  <p class="page-banner-sub">Personalized guidance from a seasoned leadership coach. One-on-one mentorship designed to accelerate your growth, clarify your path, and unlock your potential.</p>
+</div>
+
+<!-- PROGRAM OVERVIEW -->
+<div class="mentorship-container">
+  <div class="program-overview reveal">
+    <div class="overview-content">
+      <h2>The <em>Mentorship</em> Experience</h2>
+      <p>Mentorship is more than advice — it's a partnership where you have someone who believes in your potential, challenges your thinking, and holds you accountable to your aspirations. Our mentorship programme pairs you with Divine for a defined period of focused development.</p>
+      <p>Whether you're stepping into a bigger role, building a business, or navigating a critical transition, mentorship accelerates your learning and amplifies your impact.</p>
+      
+      <div class="overview-stats">
+        <div class="overview-stat">
+          <h3>3-12 Months</h3>
+          <p>Flexible programme duration</p>
+        </div>
+        <div class="overview-stat">
+          <h3>Bi-weekly</h3>
+          <p>Dedicated mentoring sessions</p>
+        </div>
+      </div>
+    </div>
+    
+    <div>
+      <h3 style="font-family: var(--serif); font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--ink);">What You Get</h3>
+      <ul style="list-style: none; font-size: .95rem; color: var(--mid);">
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> Dedicated one-on-one mentoring sessions</li>
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> Customised development framework</li>
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> Access to proprietary tools and resources</li>
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> Direct feedback and accountability</li>
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> On-demand support between sessions</li>
+        <li style="margin-bottom: 1.2rem;"><strong style="color: var(--ink);">✦</strong> Clear milestones and progress tracking</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROGRAM TIERS -->
+  <div class="tiers-section">
+    <span class="section-label">Programme Options</span>
+    <h2 class="section-title">Choose Your <em>Path</em></h2>
+    
+    <div class="tiers-grid">
+      <div class="tier-card reveal">
+        <div class="tier-badge">3 Months</div>
+        <h3 class="tier-title">Foundation</h3>
+        <p class="tier-duration">Ideal for: New challenges</p>
+        <p class="tier-price">Custom pricing</p>
+        <p class="tier-description">Get clarity on your immediate challenge, develop a winning strategy, and build momentum in the first 90 days.</p>
+        <ul class="tier-features">
+          <li>6 bi-weekly mentoring sessions</li>
+          <li>Assessment & 90-day plan</li>
+          <li>Focus on 1-2 core priorities</li>
+          <li>Email support between sessions</li>
+          <li>Monthly check-in emails</li>
+        </ul>
+        <div class="tier-cta">
+          <a href="contact.html">Enquire Now</a>
+        </div>
+      </div>
+
+      <div class="tier-card featured reveal">
+        <div class="tier-badge">6 Months</div>
+        <h3 class="tier-title">Accelerator</h3>
+        <p class="tier-duration">Most Popular | Deep change</p>
+        <p class="tier-price">Custom pricing</p>
+        <p class="tier-description">Six months of dedicated mentorship to drive significant transformation, mastery, and results. This is where real change happens.</p>
+        <ul class="tier-features">
+          <li>12 bi-weekly mentoring sessions</li>
+          <li>360-degree assessment</li>
+          <li>Customised development plan</li>
+          <li>Priority email/message support</li>
+          <li>Monthly progress reviews</li>
+          <li>Resource library access</li>
+          <li>1 complimentary workshop</li>
+        </ul>
+        <div class="tier-cta">
+          <a href="contact.html">Get Started</a>
+        </div>
+      </div>
+
+      <div class="tier-card reveal">
+        <div class="tier-badge">12 Months</div>
+        <h3 class="tier-title">Mastery</h3>
+        <p class="tier-duration">Leadership excellence</p>
+        <p class="tier-price">Custom pricing</p>
+        <p class="tier-description">A full year of sustained partnership for leaders serious about mastery. Build lasting habits and legacy-level impact.</p>
+        <ul class="tier-features">
+          <li>24 bi-weekly mentoring sessions</li>
+          <li>Comprehensive assessment suite</li>
+          <li>Multi-month strategic plan</li>
+          <li>24/7 support access</li>
+          <li>Bi-weekly reviews</li>
+          <li>Unlimited resource access</li>
+          <li>2 executive workshops included</li>
+          <li>Accountability partner</li>
+        </ul>
+        <div class="tier-cta">
+          <a href="contact.html">Schedule Call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRICULUM -->
+  <div class="curriculum-section">
+    <span class="section-label">Core Focus Areas</span>
+    <h2 class="section-title white">What We Work On</h2>
+    
+    <div class="curriculum-modules">
+      <div class="module-card">
+        <div class="module-num">Module 1</div>
+        <h3 class="module-title">Clarity & Self-Awareness</h3>
+        <ul class="module-topics">
+          <li>Leadership values and vision</li>
+          <li>Strengths and growth areas</li>
+          <li>Limiting beliefs and patterns</li>
+          <li>Career aspirations and goals</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 2</div>
+        <h3 class="module-title">Strategic Thinking</h3>
+        <ul class="module-topics">
+          <li>Industry landscape analysis</li>
+          <li>Strategic planning frameworks</li>
+          <li>Decision-making models</li>
+          <li>Execution roadmapping</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 3</div>
+        <h3 class="module-title">Influence & Leadership</h3>
+        <ul class="module-topics">
+          <li>Executive presence</li>
+          <li>Stakeholder management</li>
+          <li>Team building and development</li>
+          <li>Communication mastery</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 4</div>
+        <h3 class="module-title">Resilience & Growth</h3>
+        <ul class="module-topics">
+          <li>Stress management</li>
+          <li>Building emotional intelligence</li>
+          <li>Habits for sustained success</li>
+          <li>Legacy and life balance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENTEE BENEFITS -->
+  <div class="benefits-section">
+    <span class="section-label">Mentee Outcomes</span>
+    <h2 class="section-title">What You'll Experience</h2>
+    
+    <div class="benefits-grid">
+      <div class="benefit-item reveal">
+        <div class="benefit-num">1</div>
+        <h3>Career Acceleration</h3>
+        <p>Promotions, new roles, expanded responsibilities — mentees consistently advance faster because they're prepared, confident, and clear about their next moves.</p>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-num">2</div>
+        <h3>Strategic Clarity</h3>
+        <p>You'll have a crystalline understanding of where you're going and how to get there. No more second-guessing or spinning wheels.</p>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-num">3</div>
+        <h3>Increased Confidence</h3>
+        <p>As you achieve milestones and overcome obstacles with mentorship support, your confidence compounds. You believe in yourself differently.</p>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-num">4</div>
+        <h3>Network & Opportunities</h3>
+        <p>You'll be introduced to strategic relationships and opportunities that accelerate your growth and expand what's possible.</p>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-num">5</div>
+        <h3>Decision-Making Clarity</h3>
+        <p>High-stakes decisions become easier. You have a trusted advisor who helps you think through implications and choose strategically.</p>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-num">6</div>
+        <h3>Accountability & Results</h3>
+        <p>You're more likely to follow through on commitments and achieve your goals because someone is actively invested in your success.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="process-section">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">The Mentorship <em>Journey</em></h2>
+    
+    <div class="process-timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-label">Week 1</div>
+        <div class="timeline-title">Kickoff & Assessment</div>
+        <div class="timeline-desc">Initial discovery session to understand your background, aspirations, challenges, and desired outcomes. We establish the mentorship agreement and shared expectations.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-label">Weeks 2-3</div>
+        <div class="timeline-title">Deeper Diagnosis</div>
+        <div class="timeline-desc">Through conversations, assessments, and reflection, we build a comprehensive picture of where you are and where you want to go. We identify core focus areas.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-label">Week 4</div>
+        <div class="timeline-title">Strategic Planning</div>
+        <div class="timeline-desc">Build your customised mentorship framework, set milestones, and establish accountability structures. You walk away with clarity on the path forward.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-label">Ongoing</div>
+        <div class="timeline-title">Bi-weekly Mentoring & Accountability</div>
+        <div class="timeline-desc">Regular sessions focused on progress, challenges, learning, and next steps. We track momentum, celebrate wins, and course-correct as needed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS METRICS -->
+  <div class="success-section">
+    <span class="section-label">Mentee Success</span>
+    <h2 class="section-title">Mentorship <em>Impact</em></h2>
+    
+    <div class="metrics-grid">
+      <div class="metric-card reveal">
+        <div class="metric-num">92%</div>
+        <div class="metric-label">Achieved or exceeded their primary goal</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-num">85%</div>
+        <div class="metric-label">Reported increased career advancement</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-num">88%</div>
+        <div class="metric-label">Significantly increased confidence</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-num">78%</div>
+        <div class="metric-label">Got promoted or expanded responsibilities</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="testimonial-feature reveal">
+    <div>
+      <h2>Why Mentees Love <em>This Programme</em></h2>
+      <p>"Divine didn't just answer my questions — he helped me ask better questions. He saw potential I couldn't see in myself and didn't let me settle. Six months with him changed my entire trajectory."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div class="author-info">
+          <div class="author-name">Amina K.</div>
+          <div class="author-title">Director, Tech Company</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NEXT STEPS -->
+<div class="mentorship-next">
+  <h2>Ready to Begin Your <em>Mentorship Journey?</em></h2>
+  <p>Mentorship spots are limited to ensure personalized attention and real results. Let's talk about whether mentorship is the right fit for your goals right now.</p>
+  <a href="contact.html" class="btn-primary">Schedule Discovery Call</a>
+  <a href="services.html" class="btn-ghost">Explore Other Services</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Divine Besong <span>Eya</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="mentorship.html">Mentorship</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2024 Divine Besong Eya. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const closeBtn = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+closeBtn.addEventListener('click', () => {
+  mobileNav.classList.remove('open');
+});
+
+function closeMob() {
+  mobileNav.classList.remove('open');
+}
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealOnScroll = () => {
+  reveals.forEach(element => {
+    const windowHeight = window.innerHeight;
+    const elementTop = element.getBoundingClientRect().top;
+    const elementVisible = 150;
+    
+    if (elementTop < windowHeight - elementVisible) {
+      element.classList.add('visible');
+    }
+  });
+};
+
+// Navigation scroll effect
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+  revealOnScroll();
+});
+
+revealOnScroll();
+</script>
+</body>
+</html>

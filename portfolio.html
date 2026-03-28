@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Portfolio & Case Studies | Divine Besong Eya — Client Success Stories</title>
+<meta name="description" content="Explore case studies and success stories of leaders and organisations transformed through Divine Besong Eya's coaching and programmes.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0d;--bone:#f5f0e8;--gold:#b8963e;--gold-light:#d4ae5c;
+  --gold-pale:#f0e6c8;--slate:#2c2c2c;--mid:#6b6b6b;--light:#ede8de;
+  --white:#ffffff;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bone);color:var(--ink);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.6;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s;}
+nav.scrolled{background:rgba(245,240,232,.96);backdrop-filter:blur(12px);padding:1rem 4rem;border-bottom:1px solid rgba(184,150,62,.2);}
+nav.dark-nav{background:rgba(13,13,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,.12);}
+.nav-logo{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.02em;}
+.nav-logo.light{color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--slate);font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;}
+.nav-links.light a{color:rgba(255,255,255,.75);}
+.nav-links a:hover,.nav-links.light a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.nav-links.light a.active{color:var(--gold-light);}
+.nav-cta{background:var(--ink);color:var(--bone)!important;padding:.55rem 1.4rem;}
+.nav-cta:hover{background:var(--gold)!important;color:var(--white)!important;}
+.dark-nav .nav-links a{color:rgba(255,255,255,.7);}
+.dark-nav .nav-logo{color:var(--white);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:200;}
+.hamburger span{width:24px;height:2px;background:var(--ink);transition:.3s;}
+.dark-nav .hamburger span,.light-ham span{background:var(--white);}
+.mobile-nav{display:none;position:fixed;inset:0;background:var(--ink);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--white);text-decoration:none;transition:color .2s;}
+.mobile-nav a:hover{color:var(--gold);}
+.mobile-close{position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--white);font-size:2rem;cursor:pointer;line-height:1;}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:var(--white);padding:.95rem 2.2rem;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .2s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-dark{background:var(--ink);color:var(--white);}
+.btn-dark:hover{background:var(--gold)!important;}
+.btn-ghost{background:transparent;color:var(--ink);padding:.95rem 2.2rem;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);transition:border-color .25s,color .25s,background .25s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost-white{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.8);}
+.btn-ghost-white:hover{border-color:var(--gold);color:var(--gold);}
+
+/* SHARED LAYOUT */
+.section-label{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.section-title{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;color:var(--ink);max-width:750px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-title.white{color:var(--white);}
+
+/* PAGE HERO BANNER */
+.page-banner{background:var(--ink);padding:10rem 5rem 5rem;position:relative;overflow:hidden;}
+.page-banner::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;height:100%;background:radial-gradient(ellipse,rgba(184,150,62,.12) 0%,transparent 70%);pointer-events:none;}
+.page-banner-label{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;opacity:0;animation:fadeUp .7s .3s forwards;}
+.page-banner h1{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:300;color:var(--white);line-height:1.05;max-width:800px;opacity:0;animation:fadeUp .8s .5s forwards;}
+.page-banner h1 em{font-style:italic;color:var(--gold-light);}
+.page-banner-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:600px;margin-top:1.5rem;line-height:1.8;font-weight:300;opacity:0;animation:fadeUp .7s .7s forwards;}
+
+/* MARQUEE */
+.marquee-bar{background:var(--gold);padding:.75rem 0;overflow:hidden;white-space:nowrap;}
+.marquee-inner{display:inline-flex;animation:marquee 22s linear infinite;}
+.marquee-item{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--white);margin:0 1.8rem;}
+.marquee-sep{color:rgba(255,255,255,.4);margin:0 .4rem;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{background:#080808;padding:3rem 5rem;border-top:1px solid rgba(255,255,255,.04);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo{font-family:var(--serif);font-size:1.1rem;color:rgba(255,255,255,.5);}
+.footer-logo span{color:var(--gold);}
+.footer-links{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:.72rem;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.08em;transition:color .2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.18);}
+
+/* UTIL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav,nav.scrolled{padding:1.2rem 2.5rem;}
+  .page-banner{padding:8rem 2.5rem 4rem;}
+  footer{padding:2.5rem 2.5rem;}
+}
+@media(max-width:768px){
+  nav,nav.scrolled{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .page-banner{padding:7rem 1.5rem 3.5rem;}
+  footer{padding:2rem 1.5rem;}
+  .footer-inner{flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+</style>
+
+<style>
+/* PORTFOLIO SECTION */
+.portfolio-container{max-width:1300px;margin:0 auto;padding:7rem 5rem;}
+
+.case-study-card{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:4rem;background:var(--white);overflow:hidden;transition:box-shadow .3s;}
+.case-study-card:hover{box-shadow:0 15px 50px rgba(0,0,0,.12);}
+.case-study-card.reverse{direction:rtl;}
+.case-study-card.reverse>*{direction:ltr;}
+
+.case-img{position:relative;overflow:hidden;min-height:500px;background:linear-gradient(135deg,var(--gold) 0%,#6b4e1c 100%);display:flex;align-items:center;justify-content:center;}
+.case-img-text{font-family:var(--serif);font-size:4rem;font-weight:300;color:rgba(255,255,255,.08);}
+
+.case-content{padding:4rem;display:flex;flex-direction:column;justify-content:space-between;}
+.case-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.case-title{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--ink);margin-bottom:1rem;line-height:1.2;}
+.case-subtitle{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--slate);margin-bottom:1.5rem;}
+.case-challenge h4,
+.case-transformation h4{font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;margin-top:1.5rem;}
+.case-challenge h4:first-of-type{margin-top:0;}
+.case-challenge p,
+.case-transformation p{font-size:.9rem;color:var(--mid);line-height:1.85;margin-bottom:1rem;}
+
+.case-results{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;padding:2rem;background:var(--light);border-left:4px solid var(--gold);}
+.case-result-item{}
+.case-result-num{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--gold);margin-bottom:.3rem;}
+.case-result-label{font-size:.8rem;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.1em;}
+
+/* IMPACT METRICS */
+.impact-section{background:var(--ink);padding:7rem 5rem;margin-bottom:4rem;color:var(--white);}
+.impact-section .section-title{color:var(--white);margin-bottom:4rem;}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.impact-card{text-align:center;padding:2rem;}
+.impact-num{font-family:var(--serif);font-size:3rem;font-weight:600;color:var(--gold-light);margin-bottom:.8rem;}
+.impact-label{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* INDUSTRIES */
+.industries-section{background:var(--light);padding:7rem 5rem;margin-top:4rem;}
+.industries-section .section-title{margin-bottom:3rem;}
+.industries-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;}
+.industry-tag{background:var(--white);padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.industry-tag h3{font-size:.9rem;font-weight:600;color:var(--ink);}
+.industry-tag p{font-size:.75rem;color:var(--mid);margin-top:.4rem;}
+
+/* TESTIMONIALS */
+.testimonials-section{padding:7rem 5rem;}
+.testimonials-section .section-title{margin-bottom:3rem;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.testimonial-card{background:var(--white);padding:2.5rem;border-left:4px solid var(--gold);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:1.5rem;color:var(--gold);font-size:.8rem;}
+.testimonial-text{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--slate);line-height:1.8;margin-bottom:2rem;}
+.testimonial-author{display:flex;flex-direction:column;}
+.testimonial-author-name{font-weight:600;font-size:.9rem;color:var(--ink);}
+.testimonial-author-title{font-size:.75rem;color:var(--mid);margin-top:.3rem;}
+.testimonial-author-company{font-size:.75rem;color:var(--gold);font-weight:600;margin-top:.2rem;}
+
+/* CTA */
+.explore-more{background:var(--ink);padding:5rem;text-align:center;margin:5rem 0;}
+.explore-more h2{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--white);margin-bottom:1.5rem;}
+.explore-more h2 em{font-style:italic;color:var(--gold-light);}
+.explore-more p{color:rgba(255,255,255,.5);margin-bottom:2rem;font-size:.95rem;}
+
+@media(max-width:1024px){
+  .portfolio-container,.impact-section,.industries-section,.testimonials-section,.explore-more{padding:5rem 2.5rem;}
+  .case-study-card{grid-template-columns:1fr;}
+  .case-img{min-height:300px;}
+  .case-results{grid-template-columns:1fr;}
+  .impact-grid{grid-template-columns:repeat(2,1fr);}
+  .industries-grid{grid-template-columns:repeat(3,1fr);}
+  .testimonials-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .portfolio-container,.impact-section,.industries-section,.testimonials-section,.explore-more,.page-banner{padding:4rem 1.5rem;}
+  .case-content{padding:2.5rem;}
+  .industries-grid{grid-template-columns:repeat(2,1fr);}
+  .testimonials-grid{grid-template-columns:1fr;}
+  .impact-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav" class="dark-nav">
+  <a href="index.html" class="nav-logo light">Divine Besong <span>Eya</span></a>
+  <ul class="nav-links light">
+    <li><a href="index.html" >Home</a></li>
+    <li><a href="about.html" >About</a></li>
+    <li><a href="services.html" >Services</a></li>
+    <li><a href="workshops.html" >Workshops</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="mentorship.html" >Mentorship</a></li>
+    <li><a href="insights.html" >Insights</a></li>
+    <li><a href="contact.html" class="nav-cta ">Work with Me</a></li>
+  </ul>
+  <div class="hamburger light-ham" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div id="mobile-nav" class="mobile-nav">
+  <button class="mobile-close" id="close-nav">✕</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="services.html" onclick="closeMob()">Services</a>
+  <a href="workshops.html" onclick="closeMob()">Workshops</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="mentorship.html" onclick="closeMob()">Mentorship</a>
+  <a href="insights.html" onclick="closeMob()">Insights</a>
+  <a href="contact.html" onclick="closeMob()">Work with Me</a>
+</div>
+
+<!-- PAGE BANNER -->
+<div class="page-banner">
+  <span class="page-banner-label">Success Stories</span>
+  <h1>Leaders and Organisations <em>Transformed</em></h1>
+  <p class="page-banner-sub">Real outcomes from real leaders. See how executives, entrepreneurs, and emerging professionals have leveraged coaching and development to accelerate their impact and growth.</p>
+</div>
+
+<!-- IMPACT METRICS -->
+<div class="impact-section">
+  <span class="section-label">Our Collective Impact</span>
+  <h2 class="section-title white">By The Numbers</h2>
+  
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-num">1,200+</div>
+      <div class="impact-label">Leaders & Entrepreneurs Transformed</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">500+</div>
+      <div class="impact-label">Organisations Impacted</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">20+</div>
+      <div class="impact-label">Countries & Continents Reached</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">95%</div>
+      <div class="impact-label">Would Recommend (Client Satisfaction)</div>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="portfolio-container">
+
+  <!-- Case Study 1 -->
+  <div class="case-study-card reveal">
+    <div class="case-img">
+      <div class="case-img-text">CEO</div>
+    </div>
+    <div class="case-content">
+      <div>
+        <span class="case-label">Executive Leadership</span>
+        <h3 class="case-title">From Manager to Strategic Leader</h3>
+        <p class="case-subtitle">Fortune 500 Financial Services Director</p>
+        
+        <div class="case-challenge">
+          <h4>The Challenge</h4>
+          <p>A high-performing manager was promoted to director but struggled with the transition. Accustomed to deep technical work, she was overwhelmed by strategic responsibility, team dynamics, and navigating executive politics. Her confidence wavered despite promotions.</p>
+        </div>
+
+        <div class="case-transformation">
+          <h4>The Transformation</h4>
+          <p>Through 6 months of intensive 1-on-1 coaching, she rebuilt her identity as a strategic leader. We worked on executive presence, decision-making frameworks, stakeholder management, and the mindset shifts required for her new level. She learned to leverage her strengths while developing new capabilities.</p>
+        </div>
+      </div>
+
+      <div class="case-results">
+        <div class="case-result-item">
+          <div class="case-result-num">+40%</div>
+          <div class="case-result-label">Team Engagement Score</div>
+        </div>
+        <div class="case-result-item">
+          <div class="case-result-num">3 Promotions</div>
+          <div class="case-result-label">in 18 Months</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study 2 -->
+  <div class="case-study-card reverse reveal">
+    <div class="case-img">
+      <div class="case-img-text">Team</div>
+    </div>
+    <div class="case-content">
+      <div>
+        <span class="case-label">Organisational Transformation</span>
+        <h3 class="case-title">Rebuilding a Fragmented Leadership Team</h3>
+        <p class="case-subtitle">Technology Company Facing Integration Challenges</p>
+        
+        <div class="case-challenge">
+          <h4>The Challenge</h4>
+          <p>After a merger, the new leadership team was siloed, competing rather than collaborating. Communication was poor, decision-making was slow, and talented people were considering leaving. The CEO needed the team to function as one unit quickly.</p>
+        </div>
+
+        <div class="case-transformation">
+          <h4>The Transformation</h4>
+          <p>We ran a 2-day intensive team workshop followed by quarterly team coaching. The workshop rebuilt psychological safety, clarified roles, and created accountability structures. Subsequent coaching sessions deepened relationships and created real collaboration. Within 6 months, the team culture shifted significantly.</p>
+        </div>
+      </div>
+
+      <div class="case-results">
+        <div class="case-result-item">
+          <div class="case-result-num">72%</div>
+          <div class="case-result-label">Collaboration Score Increase</div>
+        </div>
+        <div class="case-result-item">
+          <div class="case-result-num">0</div>
+          <div class="case-result-label">Key Departures</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study 3 -->
+  <div class="case-study-card reveal">
+    <div class="case-img">
+      <div class="case-img-text">Growth</div>
+    </div>
+    <div class="case-content">
+      <div>
+        <span class="case-label">Entrepreneurship</span>
+        <h3 class="case-title">From Founder to Scalable Leader</h3>
+        <p class="case-subtitle">Tech Founder & Startup CEO</p>
+        
+        <div class="case-challenge">
+          <h4>The Challenge</h4>
+          <p>A brilliant technical founder built a successful startup but couldn't scale beyond herself. She was a bottleneck, suffering burnout, and the company's growth was limited by her capacity. She needed to build a team, delegate effectively, and evolve her leadership approach.</p>
+        </div>
+
+        <div class="case-transformation">
+          <h4>The Transformation</h4>
+          <p>Through 9 months of coaching, she shifted from a "do it myself" mindset to a "develop people" mindset. We worked on delegation, feedback, and building a strong management team. She implemented systems and processes that freed her to focus on strategy. Her team grew from 5 to 22 while her own work hours decreased.</p>
+        </div>
+      </div>
+
+      <div class="case-results">
+        <div class="case-result-item">
+          <div class="case-result-num">340%</div>
+          <div class="case-result-label">Revenue Growth</div>
+        </div>
+        <div class="case-result-item">
+          <div class="case-result-num">22x</div>
+          <div class="case-result-label">Team Expansion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study 4 -->
+  <div class="case-study-card reverse reveal">
+    <div class="case-img">
+      <div class="case-img-text">Impact</div>
+    </div>
+    <div class="case-content">
+      <div>
+        <span class="case-label">Nonprofit Leadership</span>
+        <h3 class="case-title">Building a Movement, Not Just an Organisation</h3>
+        <p class="case-subtitle">NGO Executive Director</p>
+        
+        <div class="case-challenge">
+          <h4>The Challenge</h4>
+          <p>A passionate nonprofit leader had built a strong mission-driven organisation but lacked strategic clarity around scale, sustainability, and impact measurement. Board relationships were strained, funding was inconsistent, and the team was stretched thin trying to do everything.</p>
+        </div>
+
+        <div class="case-transformation">
+          <h4>The Transformation</h4>
+          <p>We worked on strategic clarity, board leadership, and building a high-performance culture in a resource-constrained environment. The leader developed a 5-year vision, refocused programming, strengthened board relationships, and created systems for sustainable growth. She also addressed her own mindset around scarcity vs. abundance.</p>
+        </div>
+      </div>
+
+      <div class="case-results">
+        <div class="case-result-item">
+          <div class="case-result-num">5x</div>
+          <div class="case-result-label">Beneficiaries Reached</div>
+        </div>
+        <div class="case-result-item">
+          <div class="case-result-num">$2.3M</div>
+          <div class="case-result-label">Annual Budget Growth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- INDUSTRIES SERVED -->
+<div class="industries-section">
+  <span class="section-label">Industries & Sectors</span>
+  <h2 class="section-title">Experience Across Verticals</h2>
+  
+  <div class="industries-grid">
+    <div class="industry-tag">
+      <h3>Technology</h3>
+      <p>Startups to Scale-ups</p>
+    </div>
+    <div class="industry-tag">
+      <h3>Financial Services</h3>
+      <p>Banking & Investment</p>
+    </div>
+    <div class="industry-tag">
+      <h3>Manufacturing</h3>
+      <p>Industrial & Supply Chain</p>
+    </div>
+    <div class="industry-tag">
+      <h3>Hospitality</h3>
+      <p>Hotels & Entertainment</p>
+    </div>
+    <div class="industry-tag">
+      <h3>Real Estate</h3>
+      <p>Development & Property</p>
+    </div>
+    <div class="industry-tag">
+      <h3>Nonprofit</h3>
+      <p>NGOs & Social Impact</p>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT TESTIMONIALS -->
+<div class="testimonials-section">
+  <span class="section-label">What Clients Say</span>
+  <h2 class="section-title">Direct <em>Feedback</em></h2>
+  
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Divine didn't just coach me — he challenged me to think differently about leadership. His frameworks are practical, and he creates an environment where real transformation happens. I'm a different leader now."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-author-name">Catherine M.</div>
+        <div class="testimonial-author-title">Chief Operating Officer</div>
+        <div class="testimonial-author-company">Fortune 500 Corporation</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Working with Divine on our team development was transformative. He helped us see patterns we couldn't see ourselves and gave us tools to work together more effectively. Our execution improved immediately."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-author-name">James O.</div>
+        <div class="testimonial-author-title">Managing Director</div>
+        <div class="testimonial-author-company">Technology & Innovation</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"As a founder, I was drowning in doing everything myself. Divine helped me see my blind spots and gave me permission to focus on what only I can do. My company and my life are both better."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-author-name">Amara K.</div>
+        <div class="testimonial-author-title">Founder & CEO</div>
+        <div class="testimonial-author-company">Tech Startup</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORE MORE CTA -->
+<div class="explore-more">
+  <h2>Ready to Write Your <em>Success Story?</em></h2>
+  <p>These transformations began with a conversation. Let's talk about what's possible for you.</p>
+  <a href="contact.html" class="btn-primary">Book a Discovery Call</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Divine Besong <span>Eya</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="mentorship.html">Mentorship</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2024 Divine Besong Eya. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const closeBtn = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+closeBtn.addEventListener('click', () => {
+  mobileNav.classList.remove('open');
+});
+
+function closeMob() {
+  mobileNav.classList.remove('open');
+}
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealOnScroll = () => {
+  reveals.forEach(element => {
+    const windowHeight = window.innerHeight;
+    const elementTop = element.getBoundingClientRect().top;
+    const elementVisible = 150;
+    
+    if (elementTop < windowHeight - elementVisible) {
+      element.classList.add('visible');
+    }
+  });
+};
+
+// Navigation scroll effect
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+  revealOnScroll();
+});
+
+revealOnScroll();
+</script>
+</body>
+</html>
