@@ -12,7 +12,7 @@ export function WhatsAppButton() {
       href="https://wa.me/971526981013?text=Hi%2C%20I%20have%20a%20question%20about%20the%20books%20and%20workshops"
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-20 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg transition duration-300 hover:bg-emerald-600 hover:shadow-2xl sm:bottom-6 sm:right-6"
+      className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg transition duration-300 hover:bg-emerald-600 hover:shadow-2xl"
       aria-label="Chat with us on WhatsApp"
       title="Chat with us on WhatsApp"
     >
