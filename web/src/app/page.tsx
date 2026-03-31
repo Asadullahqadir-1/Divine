@@ -5,10 +5,42 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import { Reveal } from "@/components/Reveal";
 import { Stagger } from "@/components/Stagger";
-import { getHomeData, getServices } from "@/lib/cms";
+import { getHomeData, getServices, getBooks } from "@/lib/cms";
 
 export default async function HomePage() {
-  const [homeData, serviceList] = await Promise.all([getHomeData(), getServices()]);
+  const [homeData, serviceList, books] = await Promise.all([getHomeData(), getServices(), getBooks()]);
+
+  // Generate JSON-LD structured data for organization
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Divine Besong Eya",
+    jobTitle: "Leadership Coach, Keynote Speaker, Mindset Strategist",
+    description: "Leadership coach and keynote speaker helping ambitious professionals unlock the mindset, clarity, and courage to lead at their highest level.",
+    image: "/homepage1.jpeg",
+    url: "https://divinebesong.com",
+    sameAs: [
+      "https://www.linkedin.com/in/divinebesong",
+      "https://twitter.com/divinebesong",
+    ],
+    knowsAbout: ["Executive Coaching", "Keynote Speaking", "Leadership Development", "Mindset Mastery"],
+  };
+
+  const featuredBooks = books.filter(b => b.featured);
+  const booksJsonLd = featuredBooks.map((book) => ({
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: book.title,
+    author: {
+      "@type": "Person",
+      name: "Divine Besong Eya",
+    },
+    description: book.description,
+    image: book.coverImageUrl || undefined,
+    price: (book.price ?? 5.99).toFixed(2),
+    priceCurrency: "USD",
+    ...(book.externalLink && { url: book.externalLink }),
+  }));
 
   const heroStats = [
     { label: "Leaders Transformed", value: "1,200+" },
@@ -36,6 +68,26 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      {featuredBooks.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              itemListElement: booksJsonLd.map((book, idx) => ({
+                "@type": "ListItem",
+                position: idx + 1,
+                item: book,
+              })),
+            }),
+          }}
+        />
+      )}
       {/* Hero Section */}
       <section className="grid min-h-screen grid-cols-1 overflow-hidden bg-black md:grid-cols-2">
         {/* Left Content */}
@@ -160,6 +212,71 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Featured Books Section */}
+      {books.filter(b => b.featured).length > 0 && (
+        <section className="bg-bone px-8 py-16 sm:px-12 md:px-16 md:py-24">
+          <div className="mb-12">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gold">Knowledge to Transform</p>
+            <h2 className="font-display text-4xl font-light text-black md:text-5xl">
+              Featured <em className="italic text-gold">Books</em>
+            </h2>
+            <p className="mt-4 max-w-2xl text-lg text-gray-700">
+              Insights designed to help leaders navigate complexity with confidence and values-driven clarity.
+            </p>
+          </div>
+          <Stagger className="grid gap-6 md:grid-cols-2">
+            {books.filter(b => b.featured).map((book) => (
+              <Reveal key={book.slug}>
+                <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition hover:shadow-md">
+                  {book.coverImageUrl ? (
+                    <div className="mb-4 overflow-hidden rounded-xl border border-black/10">
+                      <Image
+                        src={book.coverImageUrl}
+                        alt={book.imageAlt || book.title}
+                        width={800}
+                        height={500}
+                        className="h-48 w-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="mb-4 grid h-48 place-items-center rounded-xl bg-gradient-to-br from-navy to-ink text-center">
+                      <p className="px-4 font-display text-2xl text-white">{book.title}</p>
+                    </div>
+                  )}
+                  <h3 className="font-display text-2xl leading-tight text-navy">{book.title}</h3>
+                  <p className="mt-3 text-sm text-ink/75 line-clamp-2">{book.description}</p>
+                  <p className="mt-3 text-lg font-semibold text-navy">${(book.price ?? 5.99).toFixed(2)}</p>
+                  <div className="mt-5 flex gap-2">
+                    <Link
+                      href={`/books#${book.slug}`}
+                      className="flex-1 rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-gold-light"
+                    >
+                      Learn More
+                    </Link>
+                    {book.externalLink && (
+                      <a
+                        href={book.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 rounded-full border border-gold px-4 py-2 text-center text-sm font-semibold text-gold transition hover:bg-gold hover:text-white"
+                      >
+                        Buy
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </Stagger>
+          <div className="mt-10 text-center">
+            <Link href="/books" className="inline-flex items-center gap-2 rounded-full border border-gold px-8 py-3 font-semibold text-gold transition hover:bg-gold hover:text-white">
+              View All Books
+              <span>→</span>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Philosophy Strip */}
       <section className="bg-gold px-8 py-16 text-center sm:px-12 md:px-16 md:py-20">

@@ -26,57 +26,102 @@ export const metadata: Metadata = {
 export default async function BooksPage() {
   const books = await getBooks();
 
-  return (
-    <Container className="py-20">
-      <Reveal>
-        <SectionHeader
-          eyebrow="Books"
-          title="Leadership and resilience in print"
-          description="Insights designed to help leaders navigate complexity with confidence and values-driven clarity."
-        />
-      </Reveal>
+  // Generate JSON-LD structured data for books
+  const jsonLdBooks = books.map((book) => {
+    const rating = ratingBySlug[book.slug] || { score: 4.7, reviews: 90 };
+    return {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      name: book.title,
+      author: {
+        "@type": "Person",
+        name: "Divine Besong Eya",
+      },
+      description: book.description,
+      image: book.coverImageUrl || undefined,
+      price: (book.price ?? 5.99).toFixed(2),
+      priceCurrency: "USD",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: rating.score.toFixed(1),
+        reviewCount: rating.reviews,
+      },
+      ...(book.externalLink && { url: book.externalLink }),
+    };
+  });
 
-      <Stagger className="mt-10 grid gap-6 md:grid-cols-2">
-        {books.map((book) => (
-          <article key={book.slug} className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
-            {book.coverImageUrl ? (
-              <div className="mb-4 overflow-hidden rounded-xl border border-black/10">
-                <Image
-                  src={book.coverImageUrl}
-                  alt={book.imageAlt || book.title}
-                  width={800}
-                  height={500}
-                  className="h-52 w-full object-cover"
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Books by Divine Besong Eya",
+    description: "Books by Divine Besong Eya on leadership, resilience, and transformation.",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: jsonLdBooks.map((book, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        item: book,
+      })),
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Container className="py-20">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Books"
+            title="Leadership and resilience in print"
+            description="Insights designed to help leaders navigate complexity with confidence and values-driven clarity."
+          />
+        </Reveal>
+
+        <Stagger className="mt-10 grid gap-6 md:grid-cols-2">
+          {books.map((book) => (
+            <article key={book.slug} className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+              {book.coverImageUrl ? (
+                <div className="mb-4 overflow-hidden rounded-xl border border-black/10">
+                  <Image
+                    src={book.coverImageUrl}
+                    alt={book.imageAlt || book.title}
+                    width={800}
+                    height={500}
+                    className="h-52 w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="mb-4 grid h-52 place-items-center rounded-xl bg-gradient-to-br from-navy to-ink text-center">
+                  <p className="px-4 font-display text-3xl text-white">{book.title}</p>
+                </div>
+              )}
+              <h2 className="font-display text-3xl leading-tight text-navy">{book.title}</h2>
+              {(() => {
+                const rating = ratingBySlug[book.slug] || { score: 4.7, reviews: 90 };
+                return (
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-gold">
+                    {stars(rating.score)} {rating.score.toFixed(1)} / 5 ({rating.reviews} ratings)
+                  </p>
+                );
+              })()}
+              <p className="mt-3 text-sm text-ink/75">{book.description}</p>
+              <p className="mt-2 text-lg font-semibold text-navy">${(book.price ?? 5.99).toFixed(2)}</p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <AddToCartButton
+                  id={book.slug}
+                  title={book.title}
+                  price={book.price ?? 5.99}
+                  slug={book.slug}
+                  coverImageUrl={book.coverImageUrl}
                 />
               </div>
-            ) : (
-              <div className="mb-4 grid h-52 place-items-center rounded-xl bg-gradient-to-br from-navy to-ink text-center">
-                <p className="px-4 font-display text-3xl text-white">{book.title}</p>
-              </div>
-            )}
-            <h2 className="font-display text-3xl leading-tight text-navy">{book.title}</h2>
-            {(() => {
-              const rating = ratingBySlug[book.slug] || { score: 4.7, reviews: 90 };
-              return (
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-gold">
-                  {stars(rating.score)} {rating.score.toFixed(1)} / 5 ({rating.reviews} ratings)
-                </p>
-              );
-            })()}
-            <p className="mt-3 text-sm text-ink/75">{book.description}</p>
-            <p className="mt-2 text-lg font-semibold text-navy">${(book.price ?? 5.99).toFixed(2)}</p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <AddToCartButton
-                id={book.slug}
-                title={book.title}
-                price={book.price ?? 5.99}
-                slug={book.slug}
-                coverImageUrl={book.coverImageUrl}
-              />
-            </div>
-          </article>
-        ))}
-      </Stagger>
-    </Container>
+            </article>
+          ))}
+        </Stagger>
+      </Container>
+    </>
   );
 }

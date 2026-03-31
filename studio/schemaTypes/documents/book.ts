@@ -33,7 +33,7 @@ export const book = defineType({
       name: "externalLink",
       title: "Buy/Learn More Link",
       type: "url",
-      validation: (rule) => rule.required().uri({ allowRelative: false }),
+      validation: (rule) => rule.uri({ allowRelative: false }),
     }),
     defineField({ name: "featured", title: "Featured", type: "boolean", initialValue: false }),
     defineField({ name: "seo", title: "SEO", type: "seo", validation: (rule) => rule.required() }),

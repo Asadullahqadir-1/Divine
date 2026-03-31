@@ -8,7 +8,7 @@ type LocalBook = {
   title: string;
   slug: string;
   description: string;
-  externalLink: string;
+  externalLink?: string;
   featured: boolean;
   coverImageUrl: string;
   imageAlt: string;

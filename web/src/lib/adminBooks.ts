@@ -55,21 +55,22 @@ export function validateBookPayload(payload: AdminBookPayload, options?: { requi
 
   if (!title) return "Title is required.";
   if (!description) return "Description is required.";
-  if (!externalLink) return "External link is required.";
   if (options?.requireImage && !imageAssetId) return "Cover image is required.";
   if (options?.requireImage && !imageAlt) return "Image alt text is required.";
+
+  if (externalLink) {
+    try {
+      new URL(externalLink);
+    } catch {
+      return "External link must be a valid absolute URL.";
+    }
+  }
 
   if (price) {
     const priceNum = parseFloat(price);
     if (isNaN(priceNum) || priceNum < 0) {
       return "Price must be a valid positive number.";
     }
-  }
-
-  try {
-    new URL(externalLink);
-  } catch {
-    return "External link must be a valid absolute URL.";
   }
 
   return null;

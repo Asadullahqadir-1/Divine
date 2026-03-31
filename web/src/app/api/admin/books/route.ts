@@ -72,7 +72,7 @@ export async function POST(request: Request) {
   const title = body.title!.trim();
   const description = body.description!.trim();
   const slug = toSlug(body.slug?.trim() || title);
-  const externalLink = body.externalLink!.trim();
+  const externalLink = body.externalLink?.trim() || "";
   const featured = Boolean(body.featured);
   const imageAlt = body.imageAlt!.trim();
   const priceStr = body.price?.trim() || "";
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
       title,
       slug,
       description,
-      externalLink,
+      externalLink: externalLink || undefined,
       featured,
       coverImageUrl,
       imageAlt,
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
     title,
     slug: { _type: "slug", current: slug },
     description: toPortableText(description),
-    externalLink,
+    externalLink: externalLink || undefined,
     featured,
     price: price !== null ? price : undefined,
     pdf: pdfAsset ? {

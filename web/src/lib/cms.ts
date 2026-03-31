@@ -145,7 +145,7 @@ export async function getBooks() {
       title: item.title,
       slug: item.slug?.current || item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       description: extractText(item.description) || "Book description to be added.",
-      externalLink: item.externalLink || "https://example.com",
+      externalLink: item.externalLink || undefined,
       featured: Boolean(item.featured),
       coverImageUrl: item.coverImageUrl || "",
       imageAlt: item.imageAlt || item.title,
