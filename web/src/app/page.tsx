@@ -203,6 +203,108 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Self Discovery Assessment Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-navy via-black to-navy px-8 py-16 sm:px-12 md:px-16 md:py-24">
+        <div className="absolute inset-0 opacity-5">
+          <svg className="h-full w-full" viewBox="0 0 1200 600">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="1200" height="600" fill="url(#grid)" />
+          </svg>
+        </div>
+        
+        <div className="relative mx-auto max-w-5xl">
+          <div className="rounded-3xl border border-gold/30 bg-gradient-to-br from-navy/80 to-black/80 p-8 backdrop-blur sm:p-12 md:p-16">
+            {/* Content */}
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gold-light">
+                  ✦ Leadership Assessment Tool
+                </p>
+                <h2 className="font-display mb-6 text-4xl font-light leading-tight text-white md:text-5xl">
+                  Know Your <em className="italic text-gold">Leadership</em> Level
+                </h2>
+                <p className="mb-6 leading-relaxed text-gray-300">
+                  Before you can lead others, you must understand where you stand. Our Self-Discovery Assessment measures your leadership across 10 critical dimensions—from decision-making clarity to coaching capability.
+                </p>
+                <ul className="mb-8 space-y-3 text-sm text-gray-400">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-gold-light">✓</span>
+                    <span>10 questions, 5 minutes to complete</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-gold-light">✓</span>
+                    <span>Personalized leadership level and insights</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-gold-light">✓</span>
+                    <span>Your next growth focus revealed</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold/20 text-gold-light">✓</span>
+                    <span>Book coaching if you want to accelerate</span>
+                  </li>
+                </ul>
+                <Link
+                  href="/self-discovery-assessment"
+                  className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 font-semibold text-black transition hover:bg-gold-light hover:shadow-lg"
+                >
+                  Start Your Assessment
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* Visual Preview */}
+              <div className="hidden md:block">
+                <div className="relative">
+                  {/* Floating Cards */}
+                  <div className="space-y-4">
+                    <div className="rounded-2xl border border-gold/30 bg-white/5 p-4 backdrop-blur-sm">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-gold-light">
+                        Question 1
+                      </p>
+                      <p className="mt-2 text-sm text-white">
+                        I can clearly identify my leadership strengths and blind spots.
+                      </p>
+                      <div className="mt-3 flex gap-2">
+                        {[1, 2, 3, 4, 5].map((score) => (
+                          <div
+                            key={score}
+                            className={`h-8 w-8 rounded-full border transition ${
+                              score === 4
+                                ? "border-gold bg-gold/20 text-gold-light"
+                                : "border-white/20 text-white/60"
+                            } flex items-center justify-center text-xs font-semibold`}
+                          >
+                            {score}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-gold/30 bg-white/5 p-4 backdrop-blur-sm">
+                      <div className="mb-3 flex items-center justify-between">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gold-light">
+                          Your Result
+                        </p>
+                        <span className="text-xs font-semibold text-gold-light">42 / 50</span>
+                      </div>
+                      <h3 className="font-display text-2xl text-gold-light">Advanced Leader</h3>
+                      <p className="mt-2 text-xs text-white/70">
+                        You demonstrate strong leadership capability and execution discipline across core areas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="grid grid-cols-1 gap-8 bg-black px-8 py-16 sm:px-12 md:grid-cols-2 md:items-center md:gap-16 md:px-16 md:py-24">
         <div>
