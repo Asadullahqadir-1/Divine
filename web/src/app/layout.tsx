@@ -23,11 +23,10 @@ export const metadata: Metadata = {
     "A purpose-led DEI platform with workshops, learning resources, and community engagements for the AI generation.",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/leaders_mindset_logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/leaders_mindset_logo.svg", type: "image/svg+xml" }],
-    shortcut: ["/favicon.ico"],
+    apple: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: ["/favicon.svg"],
   },
   applicationName: "Divine Besong Eya",
 };
