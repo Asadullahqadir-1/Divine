@@ -108,8 +108,8 @@ const testimonials = [
 ];
 
 export const metadata: Metadata = {
-  title: "Portfolio | Divine Besong Eya",
-  description: "Portfolio and case studies of leaders and organisations transformed.",
+  title: "Reviews | Divine Besong Eya",
+  description: "Reviews, testimonials, and case studies of leaders and organisations transformed.",
 };
 
 export default function PortfolioPage() {
@@ -118,7 +118,7 @@ export default function PortfolioPage() {
       <section className="relative overflow-hidden border-b border-gold/20 bg-black px-8 py-16 sm:px-12 md:px-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_45%,rgba(181,138,59,0.18),transparent_45%)]" />
         <div className="relative max-w-4xl">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-gold">Success Stories</p>
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-gold">Reviews & Success Stories</p>
           <h1 className="font-display text-5xl font-light leading-[1.06] text-white sm:text-6xl md:text-7xl">
             Leaders and
             <br />

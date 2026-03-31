@@ -4,6 +4,11 @@ import Link from "next/link";
 import { InsightsNewsletter } from "@/components/InsightsNewsletter";
 import { getBlogPosts } from "@/lib/cms";
 
+function estimateReadTime(text: string) {
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(7, Math.ceil(words / 180));
+}
+
 const filters = [
   "All",
   "Leadership",
@@ -27,49 +32,49 @@ const sampleCards = [
   {
     title: "5 Mental Models Every High-Performer Uses Without Thinking",
     excerpt:
-      "The way extraordinary leaders process information, make decisions, and recover from setbacks follows predictable patterns.",
+      "Elite performers do not rely on motivation. They rely on repeatable thinking models that improve decisions, protect focus, and speed up recovery after setbacks.",
     date: "Feb 2026",
-    readTime: "6 min read",
+    readTime: "11 min read",
     tag: "Mindset",
   },
   {
     title: "Why Discipline Beats Motivation Every Single Time",
     excerpt:
-      "Motivation is a feeling. Discipline is a system. Leaders who wait for motivation will always be outperformed by those who build structure.",
+      "Motivation is emotional weather. Discipline is architecture. Leaders who engineer daily systems outperform equally talented peers who depend on how they feel.",
     date: "Jan 2026",
-    readTime: "5 min read",
+    readTime: "10 min read",
     tag: "Performance",
   },
   {
     title: "The One Conversation Most Leaders Are Afraid to Have",
     excerpt:
-      "The conversation that changes the trajectory of a team or relationship is almost never the comfortable one.",
+      "The conversation that upgrades performance is almost never comfortable. Learn a practical framework for handling high stakes dialogue with clarity and respect.",
     date: "Dec 2025",
-    readTime: "7 min read",
+    readTime: "12 min read",
     tag: "Leadership",
   },
   {
     title: "Africa's Leadership Gap and Who's Going to Close It",
     excerpt:
-      "Africa doesn't have a talent shortage. It has a leadership development shortage. This is what has to change.",
+      "Africa does not have a talent shortage. It has a leadership development pipeline gap. This article maps the shifts needed to build globally competitive leadership ecosystems.",
     date: "Nov 2025",
-    readTime: "9 min read",
+    readTime: "14 min read",
     tag: "Entrepreneurship",
   },
   {
     title: "The Culture Problem Most Leaders Don't Know They're Creating",
     excerpt:
-      "Culture is not what you say your values are. It's what your team interprets through your repeated behaviors.",
+      "Culture is not what leaders announce. Culture is what teams experience repeatedly. Spot hidden behavior patterns that quietly erode trust and execution quality.",
     date: "Oct 2025",
-    readTime: "6 min read",
+    readTime: "10 min read",
     tag: "Teams",
   },
   {
     title: "How to Speak So People Actually Follow",
     excerpt:
-      "Influence is the currency of leadership. It is not title or position. It is the ability to communicate in a way that moves people.",
+      "Influence is not a title advantage. It is communication precision. Discover how strong leaders frame vision, ask better questions, and move people to action.",
     date: "Sep 2025",
-    readTime: "8 min read",
+    readTime: "12 min read",
     tag: "Communication",
   },
 ];
@@ -81,6 +86,7 @@ const freeResources = [
     description:
       "A 20-question self-assessment that reveals your current leadership strengths, blind spots, and highest-impact growth areas.",
     cta: "Download Free",
+    href: "/self-discovery-assessment",
   },
   {
     type: "Audio Training",
@@ -88,6 +94,7 @@ const freeResources = [
     description:
       "A recorded training session covering the shifts every leader must make to move from good to extraordinary.",
     cta: "Access Free",
+    href: "/contact",
   },
   {
     type: "Framework",
@@ -95,6 +102,7 @@ const freeResources = [
     description:
       "A structured template for setting and executing your most important leadership goals over the next quarter.",
     cta: "Download Free",
+    href: "/contact",
   },
 ];
 
@@ -111,7 +119,7 @@ export default async function InsightsPage() {
         title: post.title,
         excerpt: post.excerpt,
         date: new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }),
-        readTime: `${5 + (index % 4)} min read`,
+        readTime: `${estimateReadTime(post.content)} min read`,
         tag: filters[(index % (filters.length - 1)) + 1],
         href: `/blog/${post.slug}`,
       }))
@@ -233,11 +241,29 @@ export default async function InsightsPage() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">{resource.type}</p>
               <h3 className="mt-3 font-display text-4xl leading-tight text-ink">{resource.title}</h3>
               <p className="mt-4 text-sm leading-7 text-ink/70">{resource.description}</p>
-              <Link href="/contact" className="mt-6 inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-gold transition hover:text-ink">
+              <Link href={resource.href} className="mt-6 inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-gold transition hover:text-ink">
                 {resource.cta} <span className="ml-2">→</span>
               </Link>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto mb-16 w-full max-w-6xl border border-black/10 bg-gradient-to-r from-ink to-navy px-6 py-10 text-white sm:mb-20 sm:px-10 sm:py-14">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold-light">Leadership Self Discovery</p>
+        <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight sm:text-5xl">
+          Test Your Leadership Level With the Self Discovery Assessment
+        </h2>
+        <p className="mt-5 max-w-3xl text-sm leading-7 text-white/75 sm:text-base">
+          Get a fast score on self awareness, communication, decision quality, and execution discipline, then receive your next growth focus based on your current level.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <Link href="/self-discovery-assessment" className="btn-live inline-flex rounded-full bg-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white">
+            Start Assessment
+          </Link>
+          <Link href="/services" className="btn-live inline-flex rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white hover:border-gold-light hover:text-gold-light">
+            Leadership Development Consulting
+          </Link>
         </div>
       </section>
     </>

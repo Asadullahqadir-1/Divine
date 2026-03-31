@@ -10,10 +10,10 @@ const navItems = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Workshops", href: "/workshops" },
-  { label: "Portfolio", href: "/portfolio" },
   { label: "Mentorship", href: "/mentorship" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
+  { label: "Reviews", href: "/portfolio" },
 ];
 
 export function Navbar() {
@@ -23,7 +23,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-black/10 bg-mist/95 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between sm:h-20">
         <Link href="/" className="flex items-center">
-          <img src="/logo.jpg" alt="Divine Besong Eya Logo" className="h-11 w-auto object-contain sm:h-14" />
+          <img src="/leaders_mindset_logo.svg" alt="The Leaders Mindset logo" className="h-11 w-auto object-contain sm:h-14" />
         </Link>
 
         <button

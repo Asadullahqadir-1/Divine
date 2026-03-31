@@ -203,7 +203,7 @@ export async function getBlogPosts() {
     return data.map((post) => ({
       title: post.title,
       slug: post.slug?.current || post.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-      excerpt: extractText(post.content).slice(0, 160) || "Article excerpt will be available soon.",
+      excerpt: extractText(post.content).slice(0, 260) || "Article excerpt will be available soon.",
       author: post.author || "Divine Besong Eya",
       publishedAt: post.publishedAt || new Date().toISOString().slice(0, 10),
       content: extractText(post.content) || "Article content coming soon.",
@@ -224,7 +224,7 @@ export async function getBlogPostBySlug(slug: string) {
     return {
       title: post.title,
       slug: post.slug?.current || slug,
-      excerpt: extractText(post.content).slice(0, 160),
+      excerpt: extractText(post.content).slice(0, 260),
       author: post.author || "Divine Besong Eya",
       publishedAt: post.publishedAt || new Date().toISOString().slice(0, 10),
       content: extractText(post.content) || "Article content coming soon.",

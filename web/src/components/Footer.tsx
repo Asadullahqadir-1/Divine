@@ -8,10 +8,10 @@ const quickLinks = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Workshops", href: "/workshops" },
-  { label: "Portfolio", href: "/portfolio" },
   { label: "Mentorship", href: "/mentorship" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
+  { label: "Reviews", href: "/portfolio" },
 ];
 
 export async function Footer() {
@@ -49,12 +49,6 @@ export async function Footer() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/admin/login"
-              className="mt-2 inline-flex w-max border border-ink/25 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-navy transition hover:border-gold hover:text-gold"
-            >
-              Admin
-            </Link>
           </div>
         </div>
 

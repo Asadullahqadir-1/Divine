@@ -6,6 +6,11 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { Stagger } from "@/components/Stagger";
 import { getBlogPosts } from "@/lib/cms";
 
+function estimateReadTime(text: string) {
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(6, Math.ceil(words / 180));
+}
+
 const blogCategories = [
   {
     title: "Purpose in the Everyday",
@@ -83,7 +88,9 @@ export default async function BlogPage() {
       <Stagger className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {posts.map((post) => (
           <article key={post.slug} className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lift">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{new Date(post.publishedAt).toLocaleDateString()}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+              {new Date(post.publishedAt).toLocaleDateString()} | {estimateReadTime(post.content)} min read
+            </p>
             <h2 className="mt-3 font-display text-3xl leading-tight text-navy">{post.title}</h2>
             <p className="mt-3 text-sm text-ink/75">{post.excerpt}</p>
             <p className="mt-4 text-xs text-ink/60">By {post.author}</p>

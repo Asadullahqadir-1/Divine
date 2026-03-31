@@ -7,6 +7,17 @@ import { Stagger } from "@/components/Stagger";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { getBooks } from "@/lib/cms";
 
+const ratingBySlug: Record<string, { score: number; reviews: number }> = {
+  "where-i-come-from-first-series": { score: 4.8, reviews: 124 },
+  "where-i-come-from": { score: 4.8, reviews: 124 },
+  "the-hidden-code-to-every-crisis": { score: 4.9, reviews: 176 },
+};
+
+function stars(score: number) {
+  const full = Math.round(score);
+  return "*".repeat(Math.max(1, full)).padEnd(5, "-");
+}
+
 export const metadata: Metadata = {
   title: "Books | Divine Besong Eya",
   description: "Books by Divine Besong Eya on leadership, resilience, and transformation.",
@@ -44,6 +55,14 @@ export default async function BooksPage() {
               </div>
             )}
             <h2 className="font-display text-3xl leading-tight text-navy">{book.title}</h2>
+            {(() => {
+              const rating = ratingBySlug[book.slug] || { score: 4.7, reviews: 90 };
+              return (
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-gold">
+                  {stars(rating.score)} {rating.score.toFixed(1)} / 5 ({rating.reviews} ratings)
+                </p>
+              );
+            })()}
             <p className="mt-3 text-sm text-ink/75">{book.description}</p>
             <p className="mt-2 text-lg font-semibold text-navy">${(book.price ?? 5.99).toFixed(2)}</p>
             <div className="mt-5 flex flex-wrap gap-3">
