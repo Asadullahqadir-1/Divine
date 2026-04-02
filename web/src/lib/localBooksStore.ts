@@ -1,6 +1,6 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 type LocalBook = {
@@ -20,23 +20,82 @@ type LocalBookStore = {
   books: LocalBook[];
 };
 
-const STORE_PATH = path.join(process.cwd(), "src", "data", "local-books.json");
+let cachedStorePath: string | null = null;
+let cachedPublicDir: string | null = null;
 
 export function isVercelRuntime() {
   return Boolean(process.env.VERCEL);
 }
 
+async function pathExists(targetPath: string) {
+  try {
+    await access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function resolveStorePath() {
+  if (cachedStorePath) return cachedStorePath;
+
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "src", "data", "local-books.json"),
+    path.join(cwd, "web", "src", "data", "local-books.json"),
+  ];
+
+  for (const candidate of candidates) {
+    if (await pathExists(candidate)) {
+      cachedStorePath = candidate;
+      return candidate;
+    }
+  }
+
+  cachedStorePath = candidates[0];
+  return cachedStorePath;
+}
+
+async function resolvePublicUploadsDir() {
+  if (cachedPublicDir) return cachedPublicDir;
+
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "public", "uploads", "books"),
+    path.join(cwd, "web", "public", "uploads", "books"),
+  ];
+
+  for (const candidate of candidates) {
+    const parentDir = path.dirname(path.dirname(candidate));
+    if (await pathExists(parentDir)) {
+      cachedPublicDir = candidate;
+      return candidate;
+    }
+  }
+
+  cachedPublicDir = candidates[0];
+  return cachedPublicDir;
+}
+
 async function readStore(): Promise<LocalBookStore> {
-  const raw = await readFile(STORE_PATH, "utf8");
-  const parsed = JSON.parse(raw) as LocalBookStore;
-  if (!Array.isArray(parsed.books)) {
+  const storePath = await resolveStorePath();
+
+  try {
+    const raw = await readFile(storePath, "utf8");
+    const parsed = JSON.parse(raw) as LocalBookStore;
+    if (!Array.isArray(parsed.books)) {
+      return { books: [] };
+    }
+    return parsed;
+  } catch {
     return { books: [] };
   }
-  return parsed;
 }
 
 async function writeStore(store: LocalBookStore) {
-  await writeFile(STORE_PATH, JSON.stringify(store, null, 2), "utf8");
+  const storePath = await resolveStorePath();
+  await mkdir(path.dirname(storePath), { recursive: true });
+  await writeFile(storePath, JSON.stringify(store, null, 2), "utf8");
 }
 
 export async function getLocalBooks() {
@@ -83,7 +142,7 @@ export async function deleteLocalBook(id: string) {
 }
 
 export async function saveLocalBookUpload(fileName: string, bytes: Uint8Array) {
-  const uploadsDir = path.join(process.cwd(), "public", "uploads", "books");
+  const uploadsDir = await resolvePublicUploadsDir();
   await mkdir(uploadsDir, { recursive: true });
 
   const safeName = fileName.replace(/[^a-zA-Z0-9.-]/g, "-");

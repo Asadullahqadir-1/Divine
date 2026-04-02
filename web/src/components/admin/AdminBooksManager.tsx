@@ -13,7 +13,6 @@ type AdminBook = {
   coverImageUrl: string;
   imageAlt: string;
   price: number | null;
-  pdfUrl: string;
 };
 
 type FormState = {
@@ -42,7 +41,6 @@ export function AdminBooksManager() {
   const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [selectedPdfFile, setSelectedPdfFile] = useState<File | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm);
 
   const editingBook = useMemo(() => books.find((book) => book._id === editingId) || null, [books, editingId]);
@@ -79,7 +77,6 @@ export function AdminBooksManager() {
     setEditingId(null);
     setForm(emptyForm);
     setSelectedImageFile(null);
-    setSelectedPdfFile(null);
     setError(null);
   }
 
@@ -94,7 +91,6 @@ export function AdminBooksManager() {
       price: book.price ? book.price.toString() : "",
     });
     setSelectedImageFile(null);
-    setSelectedPdfFile(null);
     setError(null);
   }
 
@@ -118,26 +114,6 @@ export function AdminBooksManager() {
     return data.assetId;
   }
 
-  async function uploadPdfIfNeeded() {
-    if (!selectedPdfFile) return null;
-
-    const uploadData = new FormData();
-    uploadData.append("file", selectedPdfFile);
-    uploadData.append("fileType", "pdf");
-
-    const response = await fetch("/api/admin/books/upload", {
-      method: "POST",
-      body: uploadData,
-    });
-
-    const data = (await response.json()) as { assetId?: string; error?: string };
-    if (!response.ok || !data.assetId) {
-      throw new Error(data.error || "PDF upload failed.");
-    }
-
-    return data.assetId;
-  }
-
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
@@ -145,11 +121,9 @@ export function AdminBooksManager() {
 
     try {
       const imageAssetId = await uploadImageIfNeeded();
-      const pdfAssetId = await uploadPdfIfNeeded();
       const payload = {
         ...form,
         imageAssetId,
-        pdfAssetId,
       };
 
       const isEditing = Boolean(editingId);
@@ -287,19 +261,6 @@ export function AdminBooksManager() {
             ) : null}
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-ink">Book PDF (optional)</label>
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={(event) => setSelectedPdfFile(event.target.files?.[0] || null)}
-              className="block w-full text-sm"
-            />
-            {editingBook && !selectedPdfFile && editingBook.pdfUrl ? (
-              <p className="text-xs text-ink/70">Keep empty to preserve current PDF.</p>
-            ) : null}
-          </div>
-
           {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
           <div className="flex gap-3">
@@ -324,7 +285,7 @@ export function AdminBooksManager() {
 
       <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
         <h2 className="font-display text-3xl text-navy">Books</h2>
-        <p className="mt-2 text-xs text-ink/65">Manage title, caption, price, cover image, and PDF for each book.</p>
+        <p className="mt-2 text-xs text-ink/65">Manage title, caption, price, cover image, and featured status for each book.</p>
         {loading ? <p className="mt-4 text-sm text-ink/70">Loading books...</p> : null}
         {!loading && books.length === 0 ? <p className="mt-4 text-sm text-ink/70">No books found.</p> : null}
 
@@ -337,7 +298,6 @@ export function AdminBooksManager() {
                   <p className="text-xs text-ink/70">/{book.slug}</p>
                   {book.featured ? <p className="mt-1 text-xs font-semibold text-green-700">Featured</p> : null}
                   {book.price ? <p className="mt-1 text-xs text-ink/75">${book.price.toFixed(2)}</p> : null}
-                  {book.pdfUrl ? <p className="mt-1 text-xs text-blue-700">✓ PDF available</p> : null}
                 </div>
                 <div className="flex gap-2">
                   <button

@@ -28,7 +28,7 @@ export const books = [
     slug: "the-hidden-code-to-every-crisis",
     description:
       "A practical crisis leadership blueprint for high-pressure moments. Learn how to slow down reactive decisions, find signal inside noise, align teams quickly, and turn uncertainty into strategic momentum.",
-    externalLink: "/uploads/books/the-hidden-code-to-every-crisis.pdf",
+    externalLink: "",
     featured: true,
     coverImageUrl: "/uploads/books/cover-book-2.jpg",
     imageAlt: "THE HIDDEN CODE TO EVERY CRISIS cover",

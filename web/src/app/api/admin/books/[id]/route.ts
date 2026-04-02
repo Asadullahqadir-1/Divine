@@ -46,7 +46,7 @@ export async function PATCH(request: Request, { params }: Params) {
   if (!hasValidSanityWriteConfig()) {
     if (isVercelRuntime()) {
       return NextResponse.json(
-        { error: "Admin write operations on Vercel require SANITY_API_WRITE_TOKEN." },
+        { error: "Admin write operations on Vercel require SANITY_API_WRITE_TOKEN (or SANITY_WRITE_TOKEN)." },
         { status: 503 }
       );
     }
@@ -141,7 +141,7 @@ export async function DELETE(_request: Request, { params }: Params) {
   if (!hasValidSanityWriteConfig()) {
     if (isVercelRuntime()) {
       return NextResponse.json(
-        { error: "Admin write operations on Vercel require SANITY_API_WRITE_TOKEN." },
+        { error: "Admin write operations on Vercel require SANITY_API_WRITE_TOKEN (or SANITY_WRITE_TOKEN)." },
         { status: 503 }
       );
     }

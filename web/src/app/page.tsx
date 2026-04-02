@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import { Reveal } from "@/components/Reveal";
 import { Stagger } from "@/components/Stagger";
+import { AddToCartButton } from "@/components/AddToCartButton";
 import { getHomeData, getServices, getBooks } from "@/lib/cms";
 
 export default async function HomePage() {
@@ -39,7 +40,7 @@ export default async function HomePage() {
     image: book.coverImageUrl || undefined,
     price: (book.price ?? 5.99).toFixed(2),
     priceCurrency: "USD",
-    ...(book.externalLink && { url: book.externalLink }),
+    ...(book.externalLink && !book.externalLink.toLowerCase().endsWith(".pdf") && { url: book.externalLink }),
   }));
 
   const heroStats = [
@@ -247,23 +248,20 @@ export default async function HomePage() {
                   <h3 className="font-display text-2xl leading-tight text-navy">{book.title}</h3>
                   <p className="mt-3 text-sm text-ink/75 line-clamp-2">{book.description}</p>
                   <p className="mt-3 text-lg font-semibold text-navy">${(book.price ?? 5.99).toFixed(2)}</p>
-                  <div className="mt-5 flex gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2">
                     <Link
                       href={`/books#${book.slug}`}
-                      className="flex-1 rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-gold-light"
+                      className="rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-gold-light"
                     >
                       Learn More
                     </Link>
-                    {book.externalLink && (
-                      <a
-                        href={book.externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 rounded-full border border-gold px-4 py-2 text-center text-sm font-semibold text-gold transition hover:bg-gold hover:text-white"
-                      >
-                        Buy
-                      </a>
-                    )}
+                    <AddToCartButton
+                      id={book.slug}
+                      title={book.title}
+                      price={book.price ?? 5.99}
+                      slug={book.slug}
+                      coverImageUrl={book.coverImageUrl}
+                    />
                   </div>
                 </div>
               </Reveal>

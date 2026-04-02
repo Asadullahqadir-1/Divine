@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     if (!hasValidSanityWriteConfig()) {
       if (isVercelRuntime()) {
         return NextResponse.json(
-          { error: "Uploads on Vercel require SANITY_API_WRITE_TOKEN." },
+          { error: "Uploads on Vercel require SANITY_API_WRITE_TOKEN (or SANITY_WRITE_TOKEN)." },
           { status: 503 }
         );
       }
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
     if (!hasValidSanityWriteConfig()) {
       if (isVercelRuntime()) {
         return NextResponse.json(
-          { error: "Uploads on Vercel require SANITY_API_WRITE_TOKEN." },
+          { error: "Uploads on Vercel require SANITY_API_WRITE_TOKEN (or SANITY_WRITE_TOKEN)." },
           { status: 503 }
         );
       }
