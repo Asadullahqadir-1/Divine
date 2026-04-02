@@ -13,6 +13,7 @@ type AdminBook = {
   coverImageUrl: string;
   imageAlt: string;
   price: number | null;
+  pdfUrl?: string;
 };
 
 type FormState = {
@@ -20,7 +21,6 @@ type FormState = {
   slug: string;
   description: string;
   featured: boolean;
-  imageAlt: string;
   price: string;
 };
 
@@ -29,7 +29,6 @@ const emptyForm: FormState = {
   slug: "",
   description: "",
   featured: false,
-  imageAlt: "",
   price: "",
 };
 
@@ -41,6 +40,7 @@ export function AdminBooksManager() {
   const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [selectedPdfFile, setSelectedPdfFile] = useState<File | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm);
 
   const editingBook = useMemo(() => books.find((book) => book._id === editingId) || null, [books, editingId]);
@@ -77,6 +77,7 @@ export function AdminBooksManager() {
     setEditingId(null);
     setForm(emptyForm);
     setSelectedImageFile(null);
+    setSelectedPdfFile(null);
     setError(null);
   }
 
@@ -87,31 +88,53 @@ export function AdminBooksManager() {
       slug: book.slug,
       description: book.description,
       featured: book.featured,
-      imageAlt: book.imageAlt,
       price: book.price ? book.price.toString() : "",
     });
     setSelectedImageFile(null);
+    setSelectedPdfFile(null);
     setError(null);
   }
 
-  async function uploadImageIfNeeded() {
-    if (!selectedImageFile) return null;
+  async function uploadFilesIfNeeded() {
+    const result: { imageAssetId?: string; pdfAssetId?: string } = {};
 
-    const uploadData = new FormData();
-    uploadData.append("file", selectedImageFile);
-    uploadData.append("fileType", "image");
+    if (selectedImageFile) {
+      const uploadData = new FormData();
+      uploadData.append("file", selectedImageFile);
+      uploadData.append("fileType", "image");
 
-    const response = await fetch("/api/admin/books/upload", {
-      method: "POST",
-      body: uploadData,
-    });
+      const response = await fetch("/api/admin/books/upload", {
+        method: "POST",
+        body: uploadData,
+      });
 
-    const data = (await response.json()) as { assetId?: string; error?: string };
-    if (!response.ok || !data.assetId) {
-      throw new Error(data.error || "Image upload failed.");
+      const data = (await response.json()) as { assetId?: string; error?: string };
+      if (!response.ok || !data.assetId) {
+        throw new Error(data.error || "Image upload failed.");
+      }
+
+      result.imageAssetId = data.assetId;
     }
 
-    return data.assetId;
+    if (selectedPdfFile) {
+      const uploadData = new FormData();
+      uploadData.append("file", selectedPdfFile);
+      uploadData.append("fileType", "pdf");
+
+      const response = await fetch("/api/admin/books/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const data = (await response.json()) as { assetId?: string; error?: string };
+      if (!response.ok || !data.assetId) {
+        throw new Error(data.error || "PDF upload failed.");
+      }
+
+      result.pdfAssetId = data.assetId;
+    }
+
+    return result;
   }
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
@@ -119,14 +142,24 @@ export function AdminBooksManager() {
     setPending(true);
     setError(null);
 
+    const isEditing = Boolean(editingId);
+
+    // Validate cover image is provided for new books
+    if (!isEditing && !selectedImageFile) {
+      setError("Cover image is required to create a book.");
+      setPending(false);
+      return;
+    }
+
     try {
-      const imageAssetId = await uploadImageIfNeeded();
+      const { imageAssetId, pdfAssetId } = await uploadFilesIfNeeded();
       const payload = {
         ...form,
+        imageAlt: `${form.title} book cover`,
         imageAssetId,
+        pdfAssetId,
       };
 
-      const isEditing = Boolean(editingId);
       const response = await fetch(isEditing ? `/api/admin/books/${editingId}` : "/api/admin/books", {
         method: isEditing ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
@@ -219,13 +252,6 @@ export function AdminBooksManager() {
             placeholder="Book caption / description"
             className="w-full rounded-lg border border-ink/20 px-4 py-2 text-sm outline-none focus:border-navy"
           />
-          <input
-            required
-            value={form.imageAlt}
-            onChange={(event) => updateForm("imageAlt", event.target.value)}
-            placeholder="Cover image alt text"
-            className="w-full rounded-lg border border-ink/20 px-4 py-2 text-sm outline-none focus:border-navy"
-          />
 
           <input
             type="number"
@@ -249,7 +275,10 @@ export function AdminBooksManager() {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-ink">Cover image</label>
+            <label className="block text-sm font-medium text-ink">
+              Cover image
+              {!editingId && <span className="text-red-600">*</span>}
+            </label>
             <input
               type="file"
               accept="image/*"
@@ -258,6 +287,22 @@ export function AdminBooksManager() {
             />
             {editingBook && !selectedImageFile ? (
               <p className="text-xs text-ink/70">Keep empty to preserve current image.</p>
+            ) : null}
+            {!editingId && (
+              <p className="text-xs text-ink/70">Required to create a new book.</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-ink">Book PDF</label>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={(event) => setSelectedPdfFile(event.target.files?.[0] || null)}
+              className="block w-full text-sm"
+            />
+            {editingBook && !selectedPdfFile ? (
+              <p className="text-xs text-ink/70">Keep empty to preserve current PDF.</p>
             ) : null}
           </div>
 

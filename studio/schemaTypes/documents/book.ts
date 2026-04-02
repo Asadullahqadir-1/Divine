@@ -30,6 +30,12 @@ export const book = defineType({
       ],
     }),
     defineField({
+      name: "pdf",
+      title: "Book PDF",
+      type: "file",
+      options: { accept: "application/pdf" },
+    }),
+    defineField({
       name: "externalLink",
       title: "Buy/Learn More Link",
       type: "url",

@@ -64,7 +64,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON payload." }, { status: 400 });
   }
 
-  const validationError = validateBookPayload(body, { requireImage: hasValidSanityWriteConfig() });
+  // Always require cover image for new books
+  const validationError = validateBookPayload(body, { requireImage: true });
   if (validationError) {
     return NextResponse.json({ error: validationError }, { status: 400 });
   }
