@@ -41,7 +41,7 @@ NEXT_PUBLIC_SHOW_ADMIN_LINK=true
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
 
 # Contact form email delivery (Resend)
-CONTACT_TO_EMAIL=div@theleadersmindset.net
+CONTACT_TO_EMAIL=eyadivinesong58@gmail.com
 CONTACT_FROM_EMAIL=no-reply@theleadersmindset.net
 RESEND_API_KEY=your_resend_api_key
 ```
@@ -77,7 +77,7 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 Contact form email delivery in production requires:
 
 ```bash
-CONTACT_TO_EMAIL=div@theleadersmindset.net
+CONTACT_TO_EMAIL=eyadivinesong58@gmail.com
 CONTACT_FROM_EMAIL=no-reply@theleadersmindset.net
 RESEND_API_KEY=your_resend_api_key
 ```

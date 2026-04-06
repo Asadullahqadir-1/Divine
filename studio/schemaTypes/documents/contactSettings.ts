@@ -16,7 +16,7 @@ export const contactSettings = defineType({
       name: "email",
       title: "Email",
       type: "string",
-      initialValue: "div@theleadersmindset.net",
+      initialValue: "eyadivinesong58@gmail.com",
       validation: (rule) => rule.required().email(),
     }),
     defineField({

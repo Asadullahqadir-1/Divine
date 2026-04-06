@@ -72,7 +72,7 @@ export default function BookSessionPage() {
               Book via Contact Form
             </Link>
             <a
-              href="mailto:div@theleadersmindset.net"
+              href="mailto:eyadivinesong58@gmail.com"
               className="btn-live inline-flex border border-ink px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-ink transition hover:border-gold hover:text-gold"
             >
               Email Request
