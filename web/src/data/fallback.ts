@@ -199,7 +199,7 @@ Strategy matters. But strategy delivered by an unexamined leader will always und
 
 export const contact = {
   phone: "+971526981013",
-  email: "eyadivinesong58@gmail.com",
+  email: "eyadivinebesong58@gmail.com",
   socialLinks: [
     { platform: "LinkedIn", value: "https://www.linkedin.com/in/divine-besong-eya-84b41622b/" },
     { platform: "Instagram", value: "https://www.instagram.com/dibeseya" },

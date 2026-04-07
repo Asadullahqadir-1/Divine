@@ -129,7 +129,7 @@ export function ContactForm() {
 
       <div className="flex flex-wrap gap-3">
         <a
-          href="mailto:eyadivinesong58@gmail.com"
+          href="mailto:eyadivinebesong58@gmail.com"
           className="border border-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-ink transition hover:border-gold hover:text-gold"
         >
           Email Directly
