@@ -140,6 +140,9 @@ footer{background:#080808;padding:3rem 5rem;border-top:1px solid rgba(255,255,25
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
 .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .form-note{font-size:.75rem;color:var(--mid);margin-top:.5rem;}
+.form-feedback{font-size:.82rem;margin-top:1rem;min-height:1.2em;}
+.form-feedback.success{color:#2f7d32;}
+.form-feedback.error{color:#c62828;}
 .form-submit{width:100%;padding:1.15rem;background:var(--ink);color:var(--white);font-family:var(--sans);font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background .25s;margin-top:.5rem;}
 .form-submit:hover{background:var(--gold);}
 
@@ -260,54 +263,57 @@ footer{background:#080808;padding:3rem 5rem;border-top:1px solid rgba(255,255,25
   <div class="contact-right">
     <h2>Send a Message</h2>
     <p>Fill in the form below and Divine's team will get back to you within 48 hours with next steps.</p>
-    <div class="form-row-2">
-      <div class="form-group">
-        <label>First Name *</label>
-        <input type="text" placeholder="e.g. Amara">
+    <form id="contact-form">
+      <div class="form-row-2">
+        <div class="form-group">
+          <label for="first-name">First Name *</label>
+          <input id="first-name" name="firstName" type="text" placeholder="e.g. Amara" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name *</label>
+          <input id="last-name" name="lastName" type="text" placeholder="e.g. Okafor" required>
+        </div>
       </div>
       <div class="form-group">
-        <label>Last Name *</label>
-        <input type="text" placeholder="e.g. Okafor">
+        <label for="email-address">Email Address *</label>
+        <input id="email-address" name="email" type="email" placeholder="your@email.com" required>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Email Address *</label>
-      <input type="email" placeholder="your@email.com">
-    </div>
-    <div class="form-group">
-      <label>Phone Number (Optional)</label>
-      <input type="tel" placeholder="+234 000 000 0000">
-    </div>
-    <div class="form-group">
-      <label>Organisation / Company</label>
-      <input type="text" placeholder="Your company or organisation name">
-    </div>
-    <div class="form-group">
-      <label>I am enquiring about *</label>
-      <select>
-        <option value="">— Please Select —</option>
-        <option>Free Discovery Call</option>
-        <option>1-on-1 Executive Coaching</option>
-        <option>Group Mastermind Programme</option>
-        <option>Keynote Speaking Engagement</option>
-        <option>Corporate Workshop</option>
-        <option>VIP Intensive Day</option>
-        <option>Online Programmes</option>
-        <option>Media / Press Enquiry</option>
-        <option>Partnership / Collaboration</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Event / Engagement Date (if applicable)</label>
-      <input type="text" placeholder="e.g. June 2026 or flexible">
-    </div>
-    <div class="form-group">
-      <label>Tell Divine About Your Situation *</label>
-      <textarea rows="5" placeholder="Share where you are now, what challenge you're facing, and what outcome you're hoping for. The more context you give, the better Divine can prepare for your conversation."></textarea>
-      <p class="form-note">All information shared is treated with complete confidentiality.</p>
-    </div>
-    <button class="form-submit" onclick="handleSubmit(this)">Send My Message →</button>
+      <div class="form-group">
+        <label for="phone-number">Phone Number (Optional)</label>
+        <input id="phone-number" name="phone" type="tel" placeholder="+234 000 000 0000">
+      </div>
+      <div class="form-group">
+        <label for="organisation">Organisation / Company</label>
+        <input id="organisation" name="organization" type="text" placeholder="Your company or organisation name">
+      </div>
+      <div class="form-group">
+        <label for="enquiry">I am enquiring about *</label>
+        <select id="enquiry" name="enquiry" required>
+          <option value="">— Please Select —</option>
+          <option>Free Discovery Call</option>
+          <option>1-on-1 Executive Coaching</option>
+          <option>Group Mastermind Programme</option>
+          <option>Keynote Speaking Engagement</option>
+          <option>Corporate Workshop</option>
+          <option>VIP Intensive Day</option>
+          <option>Online Programmes</option>
+          <option>Media / Press Enquiry</option>
+          <option>Partnership / Collaboration</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="event-date">Event / Engagement Date (if applicable)</label>
+        <input id="event-date" name="eventDate" type="text" placeholder="e.g. June 2026 or flexible">
+      </div>
+      <div class="form-group">
+        <label for="message">Tell Divine About Your Situation *</label>
+        <textarea id="message" name="message" rows="5" placeholder="Share where you are now, what challenge you're facing, and what outcome you're hoping for. The more context you give, the better Divine can prepare for your conversation." required></textarea>
+        <p class="form-note">All information shared is treated with complete confidentiality.</p>
+      </div>
+      <button class="form-submit" type="submit">Send My Message →</button>
+      <p id="form-feedback" class="form-feedback" aria-live="polite"></p>
+    </form>
   </div>
 </div>
 
@@ -396,12 +402,77 @@ document.querySelectorAll('.reveal').forEach(el=>{
 </script>
 
 <script>
-function handleSubmit(btn){
-  btn.textContent='✓ Sent — We'll be in touch within 48 hours!';
-  btn.style.background='#3a7a3a';
-  btn.disabled=true;
-  setTimeout(()=>{btn.textContent='Send My Message →';btn.style.background='';btn.disabled=false;},5000);
-}
+const contactForm = document.getElementById('contact-form');
+const feedback = document.getElementById('form-feedback');
+
+contactForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const submitButton = contactForm.querySelector('.form-submit');
+  const formData = new FormData(contactForm);
+  const firstName = String(formData.get('firstName') || '').trim();
+  const lastName = String(formData.get('lastName') || '').trim();
+  const email = String(formData.get('email') || '').trim();
+  const phone = String(formData.get('phone') || '').trim();
+  const organization = String(formData.get('organization') || '').trim();
+  const enquiry = String(formData.get('enquiry') || '').trim();
+  const eventDate = String(formData.get('eventDate') || '').trim();
+  const message = String(formData.get('message') || '').trim();
+
+  if (!firstName || !lastName || !email || !enquiry || !message) {
+    feedback.textContent = 'Please fill in all required fields.';
+    feedback.className = 'form-feedback error';
+    return;
+  }
+
+  const payload = {
+    name: `${firstName} ${lastName}`,
+    email,
+    message: [
+      `Enquiry: ${enquiry}`,
+      organization ? `Organisation: ${organization}` : null,
+      phone ? `Phone: ${phone}` : null,
+      eventDate ? `Event / Engagement Date: ${eventDate}` : null,
+      '',
+      message,
+    ].filter(Boolean).join('\n'),
+  };
+
+  try {
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    feedback.textContent = '';
+    feedback.className = 'form-feedback';
+
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    let data = {};
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await response.json();
+    }
+
+    if (!response.ok) {
+      feedback.textContent = data.error || 'Could not reach the server. Please retry in a moment, or use Email Directly.';
+      feedback.className = 'form-feedback error';
+      return;
+    }
+
+    contactForm.reset();
+    feedback.textContent = data.message || 'Thanks. Your message was submitted successfully.';
+    feedback.className = 'form-feedback success';
+  } catch (error) {
+    feedback.textContent = 'Could not reach the server. Please retry in a moment, or use Email Directly.';
+    feedback.className = 'form-feedback error';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Send My Message →';
+  }
+});
 </script>
 </body>
 </html>
