@@ -127,39 +127,85 @@ export async function getAboutData() {
 }
 
 export async function getBooks() {
-  if (!hasValidSanityConfig) {
-    try {
-      const localBooks = await getLocalBooks();
-      if (localBooks.length > 0) return localBooks;
-    } catch {
-      // Fall back to bundled static data if local store is unavailable.
+  const mergeBooks = (
+    primary: Array<{
+      title: string;
+      slug: string;
+      description: string;
+      externalLink?: string;
+      featured: boolean;
+      coverImageUrl: string;
+      imageAlt: string;
+      price: number | null;
+      pdfUrl: string;
+    }>,
+    secondary: Array<{
+      title: string;
+      slug: string;
+      description: string;
+      externalLink?: string;
+      featured: boolean;
+      coverImageUrl: string;
+      imageAlt: string;
+      price: number | null;
+      pdfUrl: string;
+    }>
+  ) => {
+    const map = new Map<string, (typeof primary)[number]>();
+    for (const book of secondary) {
+      map.set(book.slug, book);
     }
-    return books;
+    for (const book of primary) {
+      map.set(book.slug, book);
+    }
+    return Array.from(map.values()).sort((a, b) => Number(b.featured) - Number(a.featured));
+  };
+
+  const normalizeBook = (item: SanityBook) => ({
+    title: item.title,
+    slug: item.slug?.current || item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    description: extractText(item.description) || "Book description to be added.",
+    externalLink: item.externalLink || undefined,
+    featured: Boolean(item.featured),
+    coverImageUrl: item.coverImageUrl || "",
+    imageAlt: item.imageAlt || item.title,
+    price: item.price || null,
+    pdfUrl: item.pdfUrl || "",
+  });
+
+  let localBooks: ReturnType<typeof getLocalBooks> extends Promise<infer T> ? T : never = [];
+  try {
+    localBooks = await getLocalBooks();
+  } catch {
+    localBooks = [];
+  }
+
+  const fallbackBooks = books.map((item) => ({
+    title: item.title,
+    slug: item.slug,
+    description: item.description,
+    externalLink: item.externalLink || undefined,
+    featured: Boolean(item.featured),
+    coverImageUrl: item.coverImageUrl || "",
+    imageAlt: item.imageAlt || item.title,
+    price: item.price || null,
+    pdfUrl: item.pdfUrl || "",
+  }));
+
+  const baseBooks = mergeBooks(localBooks, fallbackBooks);
+
+  if (!hasValidSanityConfig) {
+    return baseBooks;
   }
 
   try {
     const data = await sanityClient.fetch<SanityBook[]>(BOOKS_QUERY);
     if (!Array.isArray(data) || data.length === 0) throw new Error("No books");
 
-    return data.map((item) => ({
-      title: item.title,
-      slug: item.slug?.current || item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-      description: extractText(item.description) || "Book description to be added.",
-      externalLink: item.externalLink || undefined,
-      featured: Boolean(item.featured),
-      coverImageUrl: item.coverImageUrl || "",
-      imageAlt: item.imageAlt || item.title,
-      price: item.price || null,
-      pdfUrl: item.pdfUrl || "",
-    }));
+    const sanityBooks = data.map(normalizeBook);
+    return mergeBooks(sanityBooks, baseBooks);
   } catch {
-    try {
-      const localBooks = await getLocalBooks();
-      if (localBooks.length > 0) return localBooks;
-    } catch {
-      // Fall back to bundled static data if local store is unavailable.
-    }
-    return books;
+    return baseBooks;
   }
 }
 
