@@ -6,6 +6,24 @@ export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [feedback, setFeedback] = useState<string>("");
 
+  async function sendContact(payload: { name: string; email: string; message: string }) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 30000);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      return response;
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -22,16 +40,14 @@ export function ContactForm() {
     try {
       setStatus("sending");
       setFeedback("");
-      const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 15000);
+      let response: Response;
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
-        signal: controller.signal,
-      });
-      window.clearTimeout(timeout);
+      try {
+        response = await sendContact({ name, email, message });
+      } catch {
+        // One quick retry helps with transient edge/network hiccups.
+        response = await sendContact({ name, email, message });
+      }
 
       let data: { ok?: boolean; message?: string; error?: string } = {};
       const contentType = response.headers.get("content-type") || "";
@@ -56,7 +72,7 @@ export function ContactForm() {
       setStatus("error");
       const message =
         error instanceof DOMException && error.name === "AbortError"
-          ? "Request timed out. Please try again, or email us directly below."
+          ? "Request timed out. Please try again in a few seconds, or email us directly below."
           : "Could not reach the server. Please retry in a moment, or use Email Directly.";
       setFeedback(message);
     }
