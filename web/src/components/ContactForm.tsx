@@ -7,21 +7,36 @@ export function ContactForm() {
   const [feedback, setFeedback] = useState<string>("");
 
   async function sendContact(payload: { name: string; email: string; message: string }) {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 30000);
+    const endpoints = [
+      "/api/contact",
+      `${window.location.origin}/api/contact`,
+      "https://theleadersmindset.net/api/contact",
+    ].filter((value, index, list) => list.indexOf(value) === index);
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      });
+    let lastError: unknown;
 
-      return response;
-    } finally {
-      window.clearTimeout(timeout);
+    for (const endpoint of endpoints) {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 30000);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+          cache: "no-store",
+        });
+
+        return response;
+      } catch (error) {
+        lastError = error;
+      } finally {
+        window.clearTimeout(timeout);
+      }
     }
+
+    throw lastError || new Error("Unable to reach contact API.");
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
