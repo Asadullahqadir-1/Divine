@@ -22,11 +22,16 @@ export function ContactForm() {
     try {
       setStatus("sending");
       setFeedback("");
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 15000);
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeout);
 
       let data: { ok?: boolean; message?: string; error?: string } = {};
       const contentType = response.headers.get("content-type") || "";
@@ -47,9 +52,13 @@ export function ContactForm() {
       setStatus("sent");
       setFeedback(data.message || "Thanks. Your message was submitted successfully.");
       event.currentTarget.reset();
-    } catch {
+    } catch (error) {
       setStatus("error");
-      setFeedback("Network issue. Please check your connection and try again.");
+      const message =
+        error instanceof DOMException && error.name === "AbortError"
+          ? "Request timed out. Please try again, or email us directly below."
+          : "Could not reach the server. Please retry in a moment, or use Email Directly.";
+      setFeedback(message);
     }
   }
 

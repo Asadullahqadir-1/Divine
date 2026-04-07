@@ -13,17 +13,25 @@ function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function parseRecipientEmails(raw: string) {
+  return raw
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .filter((item, index, list) => list.indexOf(item) === index);
+}
+
 const resendApiKey = process.env.RESEND_API_KEY?.trim() || "";
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function GET() {
-  const toEmail = process.env.CONTACT_TO_EMAIL?.trim() || "";
+  const toEmails = parseRecipientEmails(process.env.CONTACT_TO_EMAIL?.trim() || "");
   const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim() || "";
 
   return NextResponse.json({
     ok: true,
     service: "resend",
-    configured: Boolean(resend && toEmail && fromEmail),
+    configured: Boolean(resend && toEmails.length > 0 && fromEmail),
   });
 }
 
@@ -46,12 +54,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "Message is too short." }, { status: 400 });
     }
 
-    const toEmail = process.env.CONTACT_TO_EMAIL?.trim() || "";
+    const toEmails = parseRecipientEmails(process.env.CONTACT_TO_EMAIL?.trim() || "");
     const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim() || "";
 
-    if (!resend || !toEmail || !fromEmail) {
+    if (!resend || toEmails.length === 0 || !fromEmail) {
       return NextResponse.json(
         { ok: false, error: "Email delivery is not configured." },
+        { status: 500 }
+      );
+    }
+
+    if (!toEmails.every(isValidEmail) || !isValidEmail(fromEmail)) {
+      return NextResponse.json(
+        { ok: false, error: "Email delivery is misconfigured. Please check sender and recipient addresses." },
         { status: 500 }
       );
     }
@@ -63,7 +78,7 @@ export async function POST(request: Request) {
     try {
       const { error } = await resend.emails.send({
         from: fromEmail,
-        to: [toEmail],
+        to: toEmails,
         replyTo: safeEmail,
         subject: `New contact form message from ${safeName}`,
         text: [
@@ -78,12 +93,32 @@ export async function POST(request: Request) {
       });
 
       if (error) {
+        const reason = `${error.name || ""} ${error.message || ""}`.toLowerCase();
+        const isRecipientIssue =
+          reason.includes("recipient") ||
+          reason.includes("mailbox") ||
+          reason.includes("not found") ||
+          reason.includes("unknown user") ||
+          reason.includes("suppression") ||
+          reason.includes("suppressed");
+
+        console.error("Resend rejected contact email", {
+          name: error.name,
+          message: error.message,
+        });
+
         return NextResponse.json(
-          { ok: false, error: "Email provider rejected the message. Check sender domain verification." },
+          {
+            ok: false,
+            error: isRecipientIssue
+              ? "Message could not be delivered to the configured inbox. Please update CONTACT_TO_EMAIL."
+              : "Email provider rejected the message. Check sender domain verification.",
+          },
           { status: 500 }
         );
       }
-    } catch {
+    } catch (error) {
+      console.error("Contact email send failed", error);
       return NextResponse.json(
         { ok: false, error: "Message could not be sent right now. Please try again." },
         { status: 500 }
