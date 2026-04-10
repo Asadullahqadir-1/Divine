@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
 
@@ -21,17 +21,34 @@ function parseRecipientEmails(raw: string) {
     .filter((item, index, list) => list.indexOf(item) === index);
 }
 
-const resendApiKey = process.env.RESEND_API_KEY?.trim() || "";
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+function parsePort(raw: string) {
+  const value = Number.parseInt(raw, 10);
+  return Number.isNaN(value) ? 465 : value;
+}
+
+function parseSecure(raw: string) {
+  return ["1", "true", "yes", "on"].includes(raw.toLowerCase());
+}
+
+function getSmtpConfig() {
+  const host = process.env.SMTP_HOST?.trim() || "";
+  const port = parsePort(process.env.SMTP_PORT?.trim() || "465");
+  const secure = parseSecure(process.env.SMTP_SECURE?.trim() || "true");
+  const user = process.env.SMTP_USER?.trim() || "";
+  const pass = process.env.SMTP_PASS?.trim() || "";
+
+  return { host, port, secure, user, pass };
+}
 
 export async function GET() {
   const toEmails = parseRecipientEmails(process.env.CONTACT_TO_EMAIL?.trim() || "");
   const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim() || "";
+  const smtp = getSmtpConfig();
 
   return NextResponse.json({
     ok: true,
-    service: "resend",
-    configured: Boolean(resend && toEmails.length > 0 && fromEmail),
+    service: "smtp",
+    configured: Boolean(smtp.host && smtp.user && smtp.pass && toEmails.length > 0 && fromEmail),
   });
 }
 
@@ -57,16 +74,18 @@ export async function POST(request: Request) {
     const toEmails = parseRecipientEmails(process.env.CONTACT_TO_EMAIL?.trim() || "");
     const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim() || "";
 
-    if (!resend || toEmails.length === 0 || !fromEmail) {
+    const smtp = getSmtpConfig();
+
+    if (!smtp.host || !smtp.user || !smtp.pass || toEmails.length === 0 || !fromEmail) {
       return NextResponse.json(
         { ok: false, error: "Email delivery is not configured." },
         { status: 500 }
       );
     }
 
-    if (!toEmails.every(isValidEmail) || !isValidEmail(fromEmail)) {
+    if (!isValidEmail(smtp.user) || !toEmails.every(isValidEmail) || !isValidEmail(fromEmail)) {
       return NextResponse.json(
-        { ok: false, error: "Email delivery is misconfigured. Please check sender and recipient addresses." },
+        { ok: false, error: "Email delivery is misconfigured. Please check SMTP and email addresses." },
         { status: 500 }
       );
     }
@@ -76,7 +95,19 @@ export async function POST(request: Request) {
     const safeMessage = message.replace(/\r\n/g, "\n").trim();
 
     try {
-      const { error } = await resend.emails.send({
+      const transporter = nodemailer.createTransport({
+        host: smtp.host,
+        port: smtp.port,
+        secure: smtp.secure,
+        auth: {
+          user: smtp.user,
+          pass: smtp.pass,
+        },
+      });
+
+      await transporter.verify();
+
+      await transporter.sendMail({
         from: fromEmail,
         to: toEmails,
         replyTo: safeEmail,
@@ -91,34 +122,8 @@ export async function POST(request: Request) {
           safeMessage,
         ].join("\n"),
       });
-
-      if (error) {
-        const reason = `${error.name || ""} ${error.message || ""}`.toLowerCase();
-        const isRecipientIssue =
-          reason.includes("recipient") ||
-          reason.includes("mailbox") ||
-          reason.includes("not found") ||
-          reason.includes("unknown user") ||
-          reason.includes("suppression") ||
-          reason.includes("suppressed");
-
-        console.error("Resend rejected contact email", {
-          name: error.name,
-          message: error.message,
-        });
-
-        return NextResponse.json(
-          {
-            ok: false,
-            error: isRecipientIssue
-              ? "Message could not be delivered to the configured inbox. Please update CONTACT_TO_EMAIL."
-              : "Email provider rejected the message. Check sender domain verification.",
-          },
-          { status: 500 }
-        );
-      }
     } catch (error) {
-      console.error("Contact email send failed", error);
+      console.error("SMTP contact email send failed", error);
       return NextResponse.json(
         { ok: false, error: "Message could not be sent right now. Please try again." },
         { status: 500 }
