@@ -1,100 +1,6 @@
-"use client";
-
-import { FormEvent, useState } from "react";
-
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [feedback, setFeedback] = useState<string>("");
-
-  async function sendContact(payload: { name: string; email: string; message: string }) {
-    const endpoints = [
-      "/api/contact",
-      `${window.location.origin}/api/contact`,
-      "https://theleadersmindset.net/api/contact",
-    ].filter((value, index, list) => list.indexOf(value) === index);
-
-    let lastError: unknown;
-
-    for (const endpoint of endpoints) {
-      const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 30000);
-
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-          cache: "no-store",
-        });
-
-        return response;
-      } catch (error) {
-        lastError = error;
-      } finally {
-        window.clearTimeout(timeout);
-      }
-    }
-
-    throw lastError || new Error("Unable to reach contact API.");
-  }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = String(formData.get("name") || "").trim();
-    const email = String(formData.get("email") || "").trim();
-    const message = String(formData.get("message") || "").trim();
-
-    if (!name || !email || !message) {
-      setStatus("error");
-      setFeedback("Please fill in all required fields.");
-      return;
-    }
-
-    try {
-      setStatus("sending");
-      setFeedback("");
-      let response: Response;
-
-      try {
-        response = await sendContact({ name, email, message });
-      } catch {
-        // One quick retry helps with transient edge/network hiccups.
-        response = await sendContact({ name, email, message });
-      }
-
-      let data: { ok?: boolean; message?: string; error?: string } = {};
-      const contentType = response.headers.get("content-type") || "";
-
-      if (contentType.includes("application/json")) {
-        data = (await response.json()) as { ok?: boolean; message?: string; error?: string };
-      } else {
-        const rawText = await response.text();
-        data.error = rawText ? `Request failed (${response.status}).` : undefined;
-      }
-
-      if (!response.ok) {
-        setStatus("error");
-        setFeedback(data.error || "Something went wrong. Please try again.");
-        return;
-      }
-
-      setStatus("sent");
-      setFeedback(data.message || "Thanks. Your message was submitted successfully.");
-      event.currentTarget.reset();
-    } catch (error) {
-      setStatus("error");
-      const message =
-        error instanceof DOMException && error.name === "AbortError"
-          ? "Request timed out. Please try again in a few seconds, or email us directly below."
-          : "Could not reach the server. Please retry in a moment, or use Email Directly.";
-      setFeedback(message);
-    }
-  }
-
   return (
-    <form className="grid gap-4 border border-black/10 bg-white p-6 sm:p-7" onSubmit={handleSubmit}>
+    <form className="grid gap-4 border border-black/10 bg-white p-6 sm:p-7" action="/api/contact" method="post">
       <div>
         <label htmlFor="name" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
           Name
@@ -136,10 +42,9 @@ export function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === "sending"}
-        className="btn-live h-11 bg-ink px-6 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-gold disabled:cursor-not-allowed disabled:opacity-70"
+        className="btn-live h-11 bg-ink px-6 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-gold"
       >
-        {status === "sending" ? "Sending..." : "Send Message"}
+        Send Message
       </button>
 
       <div className="flex flex-wrap gap-3">
@@ -158,11 +63,6 @@ export function ContactForm() {
           WhatsApp
         </a>
       </div>
-
-      {status === "sent" ? (
-        <p className="text-sm text-emerald-700">{feedback || "Thanks. Your message was submitted successfully."}</p>
-      ) : null}
-      {status === "error" ? <p className="text-sm text-rose-700">{feedback || "Something went wrong. Please try again."}</p> : null}
     </form>
   );
 }

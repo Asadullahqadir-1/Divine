@@ -10,9 +10,19 @@ export const metadata: Metadata = {
   description: "Book a session, speaking engagement, or consulting consultation with Divine Besong Eya.",
 };
 
-export default async function ContactPage() {
+type ContactPageProps = {
+  searchParams?: Promise<{
+    sent?: string;
+    error?: string;
+  }>;
+};
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
   const settings = await getSettingsData();
   const details = settings.contact;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const successMessage = resolvedSearchParams?.sent ? "Thanks. Your message has been sent successfully." : "";
+  const errorMessage = resolvedSearchParams?.error ? decodeURIComponent(resolvedSearchParams.error) : "";
 
   return (
     <>
@@ -32,6 +42,8 @@ export default async function ContactPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
+        {successMessage ? <p className="mb-6 text-sm text-emerald-700">{successMessage}</p> : null}
+        {errorMessage ? <p className="mb-6 text-sm text-rose-700">{errorMessage}</p> : null}
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <ContactForm />
 
